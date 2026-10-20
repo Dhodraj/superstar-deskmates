@@ -136,13 +136,13 @@ their timers rather than hide a view.
 Click a character with no job and it does its signature pose once, then stands
 again. Click one with a job and the click goes to the job instead.
 
-Each job earns its character by reacting at the moment that matters. A figure
-in the corner of the screen is easy to miss, so a turn gets a sound as well as
-a pose. A state that stays the same rings nothing.
+Each job earns its character by reacting at the moment that matters, rather
+than waiting to be asked. A state that stays the same changes nothing on
+screen.
 
 Vijay keeps a focus session honest. Click him to start. He folds his arms and
 stops wandering, and the menu counts down. If you leave the app you started in
-and stay away for twenty seconds, he reacts and chimes. He settles again when
+and stay away for twenty seconds, he reacts. He settles again when
 you come back, and waves when the session ends. A glance at another window is
 not drifting, which is what the twenty seconds are for.
 
@@ -152,7 +152,7 @@ session started in counts.
 
 Ajit watches one repository's newest GitHub Actions run, through `gh run list`.
 Green is standing, a run in progress is the helmet, and a failure is the red
-flag with a chime. A broken build finds you without the Actions tab open. He waves when a red build goes green, and not when a green one stays
+flag. He waves when a red build goes green, and not when a green one stays
 green. The repository is `DESKMATES_REPO`, or wherever the app was started.
 Anything `gh` cannot answer reads as unknown, which stands rather than showing a
 false green.
@@ -160,8 +160,7 @@ false green.
 Rajni reads today's AI spend from the transcripts Claude Code and Codex already
 write under the home folder. Nothing leaves the Mac. His menu shows the day's
 tokens and cost. He counts while a transcript is being written, and flips a
-coin with a chime once the day passes the alert figure. The point is to hear
-about an expensive day while you can still do something about it.
+coin once the day passes the alert figure.
 
 Cost comes from the `cost-state` line Claude Code writes per session, so there
 is no price table to go stale. Codex records no cost, so the money figure is
@@ -240,7 +239,6 @@ Two environment variables:
 - `DESKMATES_FOCUS` sets a focus session in minutes. The default is 25, and a
   short one is how you try it without waiting.
 - `DESKMATES_DISTRACTIONS` lists the apps Vijay treats as drift.
-- `DESKMATES_SILENT` turns every sound off.
 - `DESKMATES_SPEND_ALERT` is the cost in dollars at which Rajni starts
   flipping his coin. The default is 20.
 - `DESKMATES_REPO` is the repository Ajit watches. Without it he watches the

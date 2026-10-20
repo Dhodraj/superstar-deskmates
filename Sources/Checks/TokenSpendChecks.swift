@@ -104,23 +104,16 @@ func checkTokenSpend() {
     Check.that("summarises for the menu", read.summary, equals: "Today: 300 tokens, $3.50")
 
     var moods: [String] = []
-    var chimes: [String] = []
-    let job = TokenSpend(roots: [root], alertUSD: 1, interval: 3600, now: { today },
-                         play: { chimes.append("\($0)") })
+    let job = TokenSpend(roots: [root], alertUSD: 1, interval: 3600, now: { today })
     job.start { moods.append($0.rawValue) }
     Check.that("a heavy day reports alert", moods, equals: ["idle", "alert"])
-    Check.that("crossing the line rings", chimes, equals: ["spending"])
     job.refresh()
     Check.that("an unchanged day stays quiet", moods, equals: ["idle", "alert"])
-    Check.that("an unchanged day is silent", chimes, equals: ["spending"])
     job.stop()
 
     var quiet: [String] = []
-    var silence: [String] = []
-    let calm = TokenSpend(roots: [root], alertUSD: 1000, interval: 3600, now: { today },
-                          play: { silence.append("\($0)") })
+    let calm = TokenSpend(roots: [root], alertUSD: 1000, interval: 3600, now: { today })
     calm.start { quiet.append($0.rawValue) }
     Check.that("a working day reports busy", quiet.last, equals: Optional("busy"))
-    Check.that("a quiet day is silent", silence, equals: [String]())
     calm.stop()
 }

@@ -32,25 +32,20 @@ func checkCIStatus() {
 
     var answer = run("completed", "failure")
     var moods: [String] = []
-    var chimes: [String] = []
     let job = CIStatus(
         repository: URL(fileURLWithPath: "/tmp"),
         interval: 3600,
-        ask: { _ in answer },
-        play: { chimes.append("\($0)") }
+        ask: { _ in answer }
     )
     job.start { moods.append($0.rawValue) }
     Check.that("a red build reports alert", moods, equals: ["idle", "alert"])
-    Check.that("a red build rings", chimes, equals: ["broke"])
 
     job.refresh()
     Check.that("an unchanged state stays quiet", moods, equals: ["idle", "alert"])
-    Check.that("an unchanged state is silent", chimes, equals: ["broke"])
 
     answer = run("completed", "success")
     job.refresh()
     Check.that("recovering waves then rests", moods, equals: ["idle", "alert", "happy", "idle"])
-    Check.that("recovering rings", chimes, equals: ["broke", "fixed"])
 
     answer = run("in_progress", "")
     job.refresh()
@@ -59,6 +54,5 @@ func checkCIStatus() {
     answer = run("completed", "success")
     job.refresh()
     Check.that("passing after a run does not wave", moods.suffix(2).joined(separator: ","), equals: "busy,idle")
-    Check.that("green after a run is silent", chimes, equals: ["broke", "fixed"])
     job.stop()
 }

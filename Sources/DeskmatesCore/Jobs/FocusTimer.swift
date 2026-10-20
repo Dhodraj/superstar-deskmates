@@ -20,7 +20,6 @@ final class FocusTimer: NSObject, Job {
     /// the app the session started in.
     private let distractions: [String]
     private let frontmost: () -> String?
-    private let play: (Chime) -> Void
 
     private var endsAt: Date?
     private var workApp: String?
@@ -33,14 +32,12 @@ final class FocusTimer: NSObject, Job {
         length: TimeInterval = FocusTimer.lengthFromEnvironment(),
         grace: TimeInterval = 20,
         distractions: [String] = FocusTimer.distractionsFromEnvironment(),
-        frontmost: @escaping () -> String? = FocusTimer.frontmostApp,
-        play: @escaping (Chime) -> Void = Chime.ring
+        frontmost: @escaping () -> String? = FocusTimer.frontmostApp
     ) {
         self.length = length
         self.grace = grace
         self.distractions = distractions
         self.frontmost = frontmost
-        self.play = play
     }
 
     /// How long a session runs. `DESKMATES_FOCUS` sets it in minutes, which is
@@ -142,7 +139,6 @@ final class FocusTimer: NSObject, Job {
             driftingSince = since
             if !drifted, now.timeIntervalSince(since) >= grace {
                 drifted = true
-                play(.drifted)
                 emit?(.alert)
             }
         } else {
@@ -167,7 +163,6 @@ final class FocusTimer: NSObject, Job {
 
     private func finish() {
         stop()
-        play(.finished)
         emit?(.happy)
         emit?(.idle)
     }
