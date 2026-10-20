@@ -93,27 +93,73 @@ Resources/sprites/<name>/
 
 ## Characters
 
-Named after Tamil film actors, matched to what the job feels like. Three ship in
-v1, marked below.
+Five actors, chosen for silhouette as much as for the role. Each one is matched
+to the job their screen persona already does. Three ship in v1.
 
-| Character | Job | Reads |
-|---|---|---|
-| Ajith (v1) | Focus timer | Nothing. First job to build. |
-| Sivaji (v1) | AI token spend today | `~/.claude/projects/**/*.jsonl`, `~/.codex/sessions/**/rollout-*.jsonl` |
-| Manorama | Rate-limit warning | Same files, rolling 5-hour window |
-| Vadivelu (v1) | Uncommitted work piling up | `git status --porcelain` on watched repos |
-| Arjun | Last CI run | `gh run list --limit 1 --json conclusion` |
-| Sathyaraj | What is running now | `NSWorkspace.runningApplications` |
-| Vijayakanth | Today's news | One RSS feed, `XMLParser` |
-| Delhi Ganesh | Today's commits, at 18:00 | `git log --since=midnight` across repos |
-| Goundamani and Senthil | Focus guard, as a pair | Frontmost app during a focus session |
+| Character | Job | Why this job | Silhouette |
+|---|---|---|---|
+| Vijay (v1) | Focus timer | "Thalapathy" means commander, and the persona is the elder brother who keeps you on track. Dance numbers are the reward on `happy`. | Clean side part, no facial hair, bright shirt. The plainest face of the five, which is what makes him readable next to the others. |
+| Ajith (v1) | Last CI run | He races in real Formula and endurance events, so the chequered flag is already his. Green flag and red flag are the two states CI has. | Salt and pepper hair, dithered in two tones, with a beard block. IMDb lists the look as a trademark. A helmet variant covers `busy`. |
+| Rajini (v1) | AI token spend | The coin toss in *Sivaji: The Boss* is a money gesture, and critics read his sunglasses as the signal that a character is wealthy. He flips a coin per thousand tokens, and stops flipping at `alert`. | Sunglasses, which is a two-pixel dark bar and the strongest identifier available, over swept-back hair. |
+| Dhanush | Uncommitted work piling up | The persona is the underdog facing forces bigger than him, carried by a lithe frame and fierce delivery. That is the job with the widest mood range. | A narrow body. Proportion is the only full-body cue that works at this size, and it separates him from the other four at a glance. |
+| STR | Today's news | The register is charm and satire, which is what a paper read aloud needs. He also changes his look between films, and this job hides most of the face. | Long hair as a block, hands, and a held-up paper. Least face of the five. |
+
+Four jobs stay unassigned for now: the rate-limit warning, what is running
+now, today's commits at 18:00, and the focus guard pair. The pair needs two
+bodies with opposite proportions, so it needs two more actors.
 
 Three on screen at once, as a start. Right-click to swap. Hidden characters stop
 their timers rather than hide a view.
 
-One flag on the names: these are living people, and a public repo is a different
-thing from a private toy. If that matters later, use Spritefolk's own approach. Name the job in Tamil, so
-the timer is `Vilakku` and the paper is `Seithi`. Mapping names to jobs costs one file either way.
+One flag on the names. These are living people, and a public repo is a different
+thing from a private toy. If it ever becomes a problem, the characters keep their
+art and lose their names, and Tamil job words take over.
+
+### Why these three first
+
+Vijay reads no data at all, so the timer proves the stage with no I/O in the way.
+Ajith is the cheapest character to draw and his job is one shell call. Rajini is
+the job you actually want, and it is the one that parses files. Between them the
+three cover every input shape the app will ever have.
+
+## Art brief per job
+
+Assign actors against this. The job decides how much face a character needs, and
+some jobs need almost none.
+
+### What survives 32 pixels
+
+Use these. Each one is a block of pixels, not a detail:
+
+- Sunglasses. Two dark pixels, and the strongest single identifier there is.
+- Moustache. A bar two or three pixels wide, reads at once.
+- Bald against full hair. This changes the whole head outline.
+- Hair colour as a flat block, or two tones dithered for salt and pepper.
+- Beard as a jaw block.
+- Shirt colour. One flat block, and the best way to tell two characters apart.
+- Body proportion, tall and thin against short and round. The only full-body cue
+  that works.
+- A cap or hat, because it changes the head outline.
+
+These do not survive. Spend no frames on them: nose shape, eye shape, skin
+shading, age lines, or any hairstyle more specific than a block. Thin
+spectacle frames are one pixel wide and usually muddy the face.
+
+### The nine jobs
+
+| Job | Moods used | Frames | How much face it needs | What carries it |
+|---|---|---|---|---|
+| Last CI run | idle, happy, alert | 9 | Almost none | A flag that changes colour. One body, three pixels repainted. Cheapest character to draw. |
+| Today's news | idle, busy | 6 | Almost none | A held-up paper covers the body and most of the face. You see hair and hands. |
+| Today's commits at 18:00 | idle, happy | 6 | Low | A notebook and pen. Seen once a day, so draw it last. |
+| What is running now | idle, busy | 6 | Low | A head turn, so asymmetric hair or a moustache helps more than expression. |
+| Focus timer | idle, busy, happy, sleep | 12 | Low | A steady stance and a held clock or lamp. Calm, not expressive. Good first character. |
+| AI token spend | idle, busy, alert | 9 | Low | A number panel does the talking. Formal collar, neat hair, a ledger or coin. |
+| Rate-limit warning | idle, alert | 5 | High, on one mood | A raised finger and an open mouth. Cheap in frames, demanding in that one pose. |
+| Uncommitted work piling up | idle, busy, alert, sleep | 11 | Highest | Three clearly different expressions, because the mood is the data. Needs an elastic face: big eyes, mobile brows, a sweat drop at `alert`. |
+| Focus guard pair | idle, alert, happy, twice | 18 | Medium, twice | Silhouette contrast is the whole design. Tall and thin against short and round, or bald against capped. |
+
+All nine come to 82 frames. Three characters for v1 is about 25 to 30.
 
 ## Data sources
 
@@ -165,7 +211,8 @@ reference art is recorded in `THIRD_PARTY_ART.md` with its source URL and licenc
    animation that does not burn CPU.
 2. Stage. Sheet format with hot reload, `Wanderer`, three panels, menu bar
    item, settings that persist, sleep that stops timers.
-3. Jobs. Ajith first, because it reads nothing. Then Sivaji, then the rest.
+3. Jobs. Vijay first, because the timer reads nothing. Then Ajith, which is one
+   shell call. Then Rajini, which parses the usage files.
 
 Two parts will take a day each whatever the plan: per-pixel hit-testing, and
 behaviour across several monitors and fullscreen Spaces.
