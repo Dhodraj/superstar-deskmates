@@ -33,6 +33,9 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent))
 import pixelpng
 
 TARGET_HEIGHT = 192
+# How tall a plainly standing figure ends up. The rest of the cell is headroom
+# for a raised arm, so a wave does not shrink everyone else.
+ANCHOR_HEIGHT = 168
 WORK_HEIGHT = 480          # sips does this resize; Python only sees the small one
 BACKGROUND_TOLERANCE = 46  # how far from the corner colour still counts as background
 EDGE_TOLERANCE = 78        # looser, for the anti-aliased halo left behind
@@ -40,6 +43,10 @@ PAD = 1                    # transparent margin, so the figure never touches the
 
 # Frame order and duration per tag, in milliseconds.
 TAG_ORDER = ["idle", "walk", "happy", "busy", "alert", "sleep"]
+# A figure tagged `anchor` is a plainly standing copy of the character, put in
+# every image so separate images can be matched to one size. It is measured,
+# then thrown away.
+ANCHOR = "anchor"
 DURATION_MS = {"idle": 500, "walk": 260, "happy": 300, "busy": 400, "alert": 260, "sleep": 700}
 
 
@@ -253,6 +260,20 @@ def load(path, work, tags):
     return [cut_out(width, pixels, lump) for lump in found]
 
 
+def scale_for(source, figures):
+    """How much to shrink one image's figures.
+
+    When the image carries an anchor, measure that: it is the same standing
+    pose in every image, so matching it matches the character across images
+    drawn at different distances. Without an anchor, fall back to the tallest
+    figure in the image, which only holds when every pose came from one image.
+    """
+    for tag, (_, height, _) in figures:
+        if tag == ANCHOR:
+            return ANCHOR_HEIGHT / height
+    return TARGET_HEIGHT / max(height for _, (_, height, _) in figures)
+
+
 def warn_about_mixed_cameras(by_file):
     """Say when two source files were drawn at different distances.
 
@@ -273,27 +294,26 @@ def warn_about_mixed_cameras(by_file):
 
 
 def build(name, poses, out_dir, work):
-    cut, by_file = [], {}
+    cut = {}
     for tag, path, tags in poses:
         found = load(path, work, tags)
-        for figure, figure_tag in zip(found, tags or [tag]):
-            cut.append((figure_tag, figure))
-        by_file[path.name] = [height for _, height, _ in found]
+        cut[path.name] = list(zip(tags or [tag], found))
         print(f"  {path.name:34} {len(found)} figure(s)")
-    warn_about_mixed_cameras(by_file)
-
-    # One scale for every pose. Scaling each figure to the same height on its
-    # own would stretch a crouch up to match a stand, and the character would
-    # change size between frames.
-    tallest = max(height for _, (_, height, _) in cut)
-    factor = TARGET_HEIGHT / tallest
+    if not any(any(tag == ANCHOR for tag, _ in figures) for figures in cut.values()):
+        warn_about_mixed_cameras(
+            {name: [height for _, (_, height, _) in figures] for name, figures in cut.items()}
+        )
 
     frames = []
-    for tag, (width, height, pixels) in cut:
-        new_width = max(1, round(width * factor))
-        new_height = max(1, round(height * factor))
-        frames.append((tag, new_width, new_height, resize(width, height, pixels, new_width, new_height)))
-        print(f"  {tag:6} {new_width}x{new_height}")
+    for source, figures in cut.items():
+        factor = scale_for(source, figures)
+        for tag, (width, height, pixels) in figures:
+            if tag == ANCHOR:
+                continue
+            new_width = max(1, round(width * factor))
+            new_height = max(1, round(height * factor))
+            frames.append((tag, new_width, new_height, resize(width, height, pixels, new_width, new_height)))
+            print(f"  {tag:6} {new_width}x{new_height}")
     frames.sort(key=lambda f: (TAG_ORDER.index(f[0]) if f[0] in TAG_ORDER else 99, f[0]))
     cell_w = max(f[1] for f in frames) + PAD * 2
     cell_h = max(f[2] for f in frames) + PAD * 2
