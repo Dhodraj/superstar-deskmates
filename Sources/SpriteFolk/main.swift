@@ -1,49 +1,31 @@
 import AppKit
 
-/// Spike. One character, loaded from the placeholder sheet, draggable, with a
-/// right-click Quit. It exists to prove three things before any job is written:
-/// a transparent panel that never steals focus, click-through on transparent
-/// pixels, and frame animation that costs almost nothing.
+/// Sprite Folk. Pixel characters on the desktop, one job each.
+///
+/// This is the stage only: characters walk, swap and sleep. No job reads any
+/// data yet.
 
-final class AppDelegate: NSObject, NSApplicationDelegate {
-    private var panel: CharacterPanel?
-    private let pointer = PointerWatch()
+final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
+    private let stage = Stage()
+    private var statusItem: StatusItem?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        // SwiftPM flattens the copied folder into the bundle's Resources, so the
-        // path inside the bundle starts at `sprites`, not at `Resources`.
-        let directory = Bundle.module.resourceURL!
-            .appendingPathComponent("sprites/placeholder")
-
-        let sheet: SpriteSheet
-        do {
-            sheet = try SpriteSheet(directory: directory)
-        } catch {
-            FileHandle.standardError.write("cannot load \(directory.path): \(error)\n".data(using: .utf8)!)
+        guard !stage.available.isEmpty else {
+            FileHandle.standardError.write("no characters found\n".data(using: .utf8)!)
             exit(1)
         }
-
-        let view = SpriteView(sheet: sheet, scale: 3)
-        view.onQuit = { NSApp.terminate(nil) }
-
-        let panel = CharacterPanel(spriteView: view)
-        panel.placeOnScreen()
-        panel.orderFrontRegardless()
-        self.panel = panel
-
-        pointer.watch(panel)
-        pointer.start()
-        view.start()
+        MenuTarget.shared.stage = stage
+        stage.begin()
+        statusItem = StatusItem(stage: stage)
     }
 
     func applicationWillTerminate(_ notification: Notification) {
-        pointer.stop()
-        panel?.spriteView.stop()
+        stage.end()
     }
 }
 
 let app = NSApplication.shared
-// No Dock icon and no menu bar. The app is only its characters.
+// No Dock icon and no menu bar of its own. The app is only its characters.
 app.setActivationPolicy(.accessory)
 let delegate = AppDelegate()
 app.delegate = delegate

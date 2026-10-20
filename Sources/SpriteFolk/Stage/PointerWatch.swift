@@ -24,6 +24,10 @@ final class PointerWatch {
         panels.append(panel)
     }
 
+    func forget(_ panel: CharacterPanel) {
+        panels.removeAll { $0 === panel }
+    }
+
     func start() {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: rate, repeats: true) { [weak self] _ in

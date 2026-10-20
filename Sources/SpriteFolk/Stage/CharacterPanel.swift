@@ -22,6 +22,9 @@ final class CharacterPanel: NSPanel {
         becomesKeyOnlyIfNeeded = true
         hidesOnDeactivate = false
         isMovableByWindowBackground = false
+        // macOS restores window frames on launch, which lands after wake() has
+        // set the saved position and silently overrides it.
+        isRestorable = false
         // Starts transparent to the mouse. PointerWatch turns this off while the
         // cursor is over a drawn pixel, which is what makes click-through work.
         ignoresMouseEvents = true
@@ -31,10 +34,11 @@ final class CharacterPanel: NSPanel {
     override var canBecomeKey: Bool { true }
 
     /// Puts the character near the bottom right of the screen it starts on.
-    func placeOnScreen() {
+    /// `slot` spreads the first few characters out instead of stacking them.
+    func placeOnScreen(slot: Int) {
         guard let visible = (screen ?? NSScreen.main)?.visibleFrame else { return }
         setFrameOrigin(NSPoint(
-            x: visible.maxX - frame.width - 80,
+            x: visible.maxX - frame.width - 80 - CGFloat(slot) * (frame.width + 40),
             y: visible.minY + 80
         ))
     }

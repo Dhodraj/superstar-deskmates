@@ -1,7 +1,7 @@
 {
  "frames": [
   {
-   "filename": "placeholder 0.aseprite",
+   "filename": "rajini 0.aseprite",
    "frame": {
     "x": 0,
     "y": 0,
@@ -23,7 +23,7 @@
    "duration": 400
   },
   {
-   "filename": "placeholder 1.aseprite",
+   "filename": "rajini 1.aseprite",
    "frame": {
     "x": 32,
     "y": 0,
@@ -45,7 +45,7 @@
    "duration": 400
   },
   {
-   "filename": "placeholder 2.aseprite",
+   "filename": "rajini 2.aseprite",
    "frame": {
     "x": 64,
     "y": 0,
@@ -67,7 +67,7 @@
    "duration": 120
   },
   {
-   "filename": "placeholder 3.aseprite",
+   "filename": "rajini 3.aseprite",
    "frame": {
     "x": 96,
     "y": 0,
@@ -89,7 +89,7 @@
    "duration": 120
   },
   {
-   "filename": "placeholder 4.aseprite",
+   "filename": "rajini 4.aseprite",
    "frame": {
     "x": 128,
     "y": 0,
@@ -111,7 +111,7 @@
    "duration": 120
   },
   {
-   "filename": "placeholder 5.aseprite",
+   "filename": "rajini 5.aseprite",
    "frame": {
     "x": 160,
     "y": 0,

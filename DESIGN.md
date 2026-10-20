@@ -203,14 +203,38 @@ keep their art and lose their names, and the Tamil job words take over.
 AI-generated frames stay out of the repo and in `.gitignore`. Any borrowed
 reference art is recorded in `THIRD_PARTY_ART.md` with its source URL and licence.
 
+## Running it
+
+```
+swift build && ./.build/debug/SpriteFolk
+```
+
+No Dock icon. The menu bar item is the only way in when every character is
+hidden. Right-click a character for the same menu.
+
+Two environment variables:
+
+- `SPRITEFOLK_SPRITES` points at a sprites directory. Set it to
+  `Sources/SpriteFolk/Resources/sprites` while drawing, because hot reload
+  cannot watch the copy inside the built bundle.
+- `SPRITEFOLK_DEBUG` prints every character's position once a second. The app
+  has no window to inspect, so this is how you find a character that is not
+  where you expect.
+
+Placeholder art is generated, not drawn:
+
+```
+python3 scripts/make_placeholder_sheet.py Sources/SpriteFolk/Resources/sprites
+```
+
 ## Milestones
 
-1. Spike. One panel, one CC0 sprite, idle and walk, alpha hit-test, drag to
-   move, right-click to quit. This proves the three parts that can fail: a
-   transparent non-activating panel, click-through on transparent pixels, and
-   animation that does not burn CPU.
-2. Stage. Sheet format with hot reload, `Wanderer`, three panels, menu bar
-   item, settings that persist, sleep that stops timers.
+1. Spike. Done. One panel, a generated sprite, idle and walk, alpha hit-test,
+   drag to move, right-click to quit. This proved the three parts that can
+   fail: a transparent non-activating panel, click-through on transparent
+   pixels, and animation that does not burn CPU.
+2. Stage. Done. Sheet format with hot reload, `Wanderer`, three panels, menu
+   bar item, settings that persist, sleep that stops timers.
 3. Jobs. Vijay first, because the timer reads nothing. Then Ajith, which is one
    shell call. Then Rajini, which parses the usage files.
 
