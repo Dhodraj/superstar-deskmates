@@ -9,7 +9,7 @@ JSON the app already reads.
 
 Three layouts, in the order the importer prefers them:
 
-    Art/reference/vijay/strip-idle-walk-walk-happy.png
+    Art/reference/vijay/strip-idle-walk-walk-happy.png (one or more strips)
     Art/reference/vijay/idle.png, walk-a.png, walk-b.png, happy.png
     Art/reference/vijay.png
 
@@ -168,7 +168,9 @@ def poses_for(directory, name):
     if folder.is_dir():
         strips = sorted(folder.glob("strip-*.png"))
         if strips:
-            return [("strip", strips[0], strips[0].stem.split("-")[1:])]
+            # More than one strip is normal: the first covers standing and
+            # walking, a later one adds the moods a job needs.
+            return [("strip", s, s.stem.split("-")[1:]) for s in strips]
         found = sorted(p for p in folder.iterdir() if p.suffix.lower() == ".png")
         return [(p.stem.split("-")[0], p, None) for p in found]
     return [("idle", directory / f"{name}.png", None)]

@@ -72,6 +72,31 @@ Save as `Art/reference/rajni/strip-idle-walk-walk-alert.png`.
 > shadow on the floor. Nothing else in the scene. A dark outline around each
 > figure. Front view.
 
+## Second strip: the moods a job needs
+
+The first strip gave each character one pose beyond standing and walking. The
+jobs need more than that, and a missing mood falls back to standing, so the
+character shows nothing when it should warn you.
+
+What is still missing:
+
+| Character | Has | Needs | Why |
+|---|---|---|---|
+| Vijay | idle, walk, happy | busy | Standing at work while a focus session runs |
+| Ajit | idle, walk, busy | alert, happy | A failed run, and the wave when it goes green again |
+| Rajni | idle, walk, alert | busy | Counting while the tokens add up |
+
+Use the same prompt as before, with the same attachment, and change only the
+pose list. Save the second strip beside the first. The importer reads every
+`strip-*.png` in the folder and scales them all together.
+
+- `Art/reference/vijay/strip-busy.png`: one figure, arms folded, standing still
+  and watching, patient rather than pleased.
+- `Art/reference/ajit/strip-alert-happy.png`: two figures, first with his hands
+  raised in frustration, then punching the air.
+- `Art/reference/rajni/strip-busy.png`: one figure, counting notes in both
+  hands, head down.
+
 ## If a strip comes back wrong
 
 - Figures touching: the importer counts the wrong number and stops with a

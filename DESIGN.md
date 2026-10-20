@@ -99,7 +99,9 @@ character with only `idle` still runs, because a missing mood falls back to
 
 ```
 Package.swift                    SwiftPM executable, no .xcodeproj
-Sources/Deskmates/
+Sources/Deskmates/main.swift     three lines: calls DeskmatesCore.run()
+Sources/Checks/                  runnable checks, see Running it
+Sources/DeskmatesCore/
   App.swift                      NSApplication, LSUIElement
   Stage/CharacterPanel.swift     the panel
   Stage/SpriteView.swift         alpha hit-test, frame timer
@@ -137,6 +139,13 @@ again. Click one with a job and the click goes to the job instead.
 Vijay's focus timer is the first job. Click him to start a session. He stops
 wandering and stands while it runs, then waves when it ends. Click him again, or
 use his right-click menu, to stop it early. The menu shows the time left.
+
+Ajit watches one repository's newest GitHub Actions run, through `gh run list`.
+Green is standing, a run in progress is the helmet, and a failure is the red
+flag. He waves when a red build goes green, and not when a green one stays
+green. The repository is `DESKMATES_REPO`, or wherever the app was started.
+Anything `gh` cannot answer reads as unknown, which stands rather than showing a
+false green.
 
 Characters keep 8 points between them. One that walks into another stops and
 rests rather than standing on top of it.
@@ -181,6 +190,16 @@ job, and a half-finished roster reads worse than three finished ones.
 swift build && ./.build/debug/Deskmates
 ```
 
+Checks run as a program, not as `swift test`:
+
+```
+swift run Checks
+```
+
+Both XCTest and swift-testing ship with Xcode, and this machine has the Command
+Line Tools only. `Sources/Checks` drives the real job objects and exits
+non-zero when one misbehaves.
+
 No Dock icon. The menu bar item is the only way in when every character is
 hidden. Right-click a character for the same menu.
 
@@ -189,6 +208,8 @@ Two environment variables:
 - `DESKMATES_SPRITES` points at a sprites directory. Set it to
   `Sources/Deskmates/Resources/sprites` while drawing, because hot reload
   cannot watch the copy inside the built bundle.
+- `DESKMATES_REPO` is the repository Ajit watches. Without it he watches the
+  directory the app was started from.
 - `DESKMATES_DEBUG` prints every character's position once a second. The app
   has no window to inspect, so this is how you find a character that is not
   where you expect.
@@ -208,8 +229,8 @@ python3 scripts/import_reference.py Art/reference Sources/Deskmates/Resources/sp
 2. Stage. Done. Sheet format with hot reload, `Wanderer`, three panels, menu
    bar item, settings that persist, sleep that stops timers. Characters keep
    clear of each other, save where they stand, and answer a click.
-3. Jobs. Vijay's focus timer is done, because it reads nothing. Ajit is next,
-   on one shell call. Then Rajni, which parses the usage files.
+3. Jobs. Vijay's focus timer and Ajit's CI watch are done. Rajni is next,
+   which parses the usage files.
 
 Two parts will take a day each whatever the plan: per-pixel hit-testing, and
 behaviour across several monitors and fullscreen Spaces.
