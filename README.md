@@ -2,7 +2,7 @@
 
 Pixel film stars that live on your Mac desktop and do one small job each.
 
-<!-- MEDIA:HERO -->
+![three characters on a desktop, one walking](docs/walking.gif)
 
 No account. No network. No permission prompts. Nothing leaves the Mac.
 
@@ -22,7 +22,7 @@ Needs macOS 14 or later and the Xcode Command Line Tools.
 | **Ajit** | Battery | Helmet on while the Mac charges, hands up when the charge runs low |
 | **Rajni** | What is running | Counts the apps you have open, and flips his coin once the desk is crowded |
 
-<!-- MEDIA:CHARACTERS -->
+![Vijay folding his arms for a focus session, counting down, then waving](docs/focus.gif)
 
 They walk about on their own, keep out of each other's way, and remember where
 they were standing. Drag one to move it. Click one to talk to its job. Clicks
