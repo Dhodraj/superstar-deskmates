@@ -121,8 +121,8 @@ to the job their screen persona already does. Three ship in v1.
 | Character | Job | Why this job | Silhouette |
 |---|---|---|---|
 | Vijay (v1) | Focus timer | "Thalapathy" means commander, and the persona is the elder brother who keeps you on track. Dance numbers are the reward on `happy`. | Red headband over dark hair, moustache and goatee, white shirt and trousers, a red and yellow scarf down the chest, bare forearms. Waving is his `happy` frame. |
-| Ajit (v1) | Last CI run | He races in real Formula and endurance events, so the chequered flag is already his. Green flag and red flag are the two states CI has. | All-grey hair and a white beard, white race suit with red and yellow stripes down the outer seams, red boots. Raising the helmet is his `busy` frame. |
-| Rajni (v1) | AI token spend | The coin toss in *Sivaji: The Boss* is a money gesture, and critics read his sunglasses as the signal that a character is wealthy. The coin flip is his `alert` frame, for the day the spend runs high. | Black sunglasses, the strongest identifier available, over dark hair with a grey streak. Tan suit over a patterned tie, brown shoes. |
+| Ajit (v1) | Battery | He races in real Formula and endurance events, so watching the fuel is already his. Charging, running down, nearly empty. | All-grey hair and a white beard, white race suit with red and yellow stripes down the outer seams, red boots. Raising the helmet is his `busy` frame. |
+| Rajni (v1) | What is running | The persona is the arrival everyone notices, so noticing who else is in the room suits him. The coin toss from *Sivaji: The Boss* is his `alert` frame, for a crowded desk. | Black sunglasses, the strongest identifier available, over dark hair with a grey streak. Tan suit over a patterned tie, brown shoes. |
 | Dhanush | Uncommitted work piling up | The persona is the underdog facing forces bigger than him, carried by a lithe frame and fierce delivery. That is the job with the widest mood range. | A narrow body. Proportion is the only full-body cue that works at this size, and it separates him from the other four at a glance. |
 | STR | Today's news | The register is charm and satire, which is what a paper read aloud needs. He also changes his look between films, and this job hides most of the face. | Long hair as a block, hands, and a held-up paper. Least face of the five. |
 
@@ -150,37 +150,19 @@ not drifting, which is what the twenty seconds are for.
 against the bundle identifier. Without it, any app other than the one the
 session started in counts.
 
-Ajit watches one repository's newest GitHub Actions run, through `gh run list`.
-Green is standing, a run in progress is the helmet, and a failure is the red
-flag. He waves when a red build goes green, and not when a green one stays
-green. The repository is `DESKMATES_REPO`, or wherever the app was started.
-Anything `gh` cannot answer reads as unknown, which stands rather than showing a
-false green.
+Ajit watches the battery, which is the fuel gauge a racer would watch. Helmet
+on while the Mac is charging, hands up below the warning level, and the charge
+and the time left in his menu. A Mac with no battery reads as nothing to
+report, so he stands.
 
-Rajni reads today's AI spend from the transcripts Claude Code and Codex already
-write under the home folder. Nothing leaves the Mac. His menu shows the day's
-tokens and cost. He counts while a transcript is being written, and flips a
-coin once the day passes the alert figure.
+Rajni notices who is in the room: the apps you have open and the one in front.
+He counts while the desk fills up, and the coin comes out once it is crowded.
+His menu lists them. This is the one job copied straight from Spritefolk, where
+Dhiru does the same thing.
 
-Cost comes from the `cost-state` line Claude Code writes per session, so there
-is no price table to go stale. Codex records no cost, so the money figure is
-the Claude Code one. Cache reads are left out of the token count. The whole
-context is counted again on every request. Including them put a real day at
-1.4 billion tokens, against 21.8 million of actual work.
+Every job reads the machine in front of it. None of them opens a network
+connection, and none needs a permission prompt.
 
-Characters keep 8 points between them. One that walks into another stops and
-rests rather than standing on top of it.
-
-One flag on the names. These are living people, and a public repo is a different
-thing from a private toy. If it ever becomes a problem, the characters keep their
-art and lose their names, and Tamil job words take over.
-
-### Why these three first
-
-Vijay reads no data at all, so the timer proves the stage with no I/O in the way.
-Ajit is the cheapest character to draw and his job is one shell call. Rajni is
-the job you actually want, and it is the one that parses files. Between them the
-three cover every input shape the app will ever have.
 
 ## Art
 
@@ -239,10 +221,10 @@ Two environment variables:
 - `DESKMATES_FOCUS` sets a focus session in minutes. The default is 25, and a
   short one is how you try it without waiting.
 - `DESKMATES_DISTRACTIONS` lists the apps Vijay treats as drift.
-- `DESKMATES_SPEND_ALERT` is the cost in dollars at which Rajni starts
-  flipping his coin. The default is 20.
-- `DESKMATES_REPO` is the repository Ajit watches. Without it he watches the
-  directory the app was started from.
+- `DESKMATES_BATTERY_LOW` is the charge at which Ajit puts his hands up. The
+  default is 20.
+- `DESKMATES_APPS_BUSY` and `DESKMATES_APPS_CROWDED` are the app counts at
+  which Rajni starts counting and starts flipping. The defaults are 8 and 14.
 - `DESKMATES_DEBUG` prints every character's position once a second. The app
   has no window to inspect, so this is how you find a character that is not
   where you expect.
@@ -262,8 +244,9 @@ python3 scripts/import_reference.py Art/reference Sources/Deskmates/Resources/sp
 2. Stage. Done. Sheet format with hot reload, `Wanderer`, three panels, menu
    bar item, settings that persist, sleep that stops timers. Characters keep
    clear of each other, save where they stand, and answer a click.
-3. Jobs. Done for the three v1 characters. Vijay runs a focus timer, Ajit
-   watches CI, Rajni counts the day's AI spend.
+3. Jobs. Done for the three v1 characters. Vijay runs a focus timer and
+   watches whether you keep to it, Ajit watches the battery, Rajni counts the
+   apps you have open. All three read only this machine.
 
 Two parts will take a day each whatever the plan: per-pixel hit-testing, and
 behaviour across several monitors and fullscreen Spaces.

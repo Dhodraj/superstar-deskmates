@@ -19,13 +19,12 @@ Expect `all checks passed`. Nothing below is worth doing if this fails.
 ```
 rm -f ~/Library/Application\ Support/Deskmates/settings.json
 swift build
-DESKMATES_DEBUG=1 DESKMATES_FOCUS=1 DESKMATES_SPEND_ALERT=0.01 ./.build/debug/Deskmates
+DESKMATES_DEBUG=1 DESKMATES_FOCUS=1 ./.build/debug/Deskmates
 ```
 
 `DESKMATES_DEBUG` prints a position line once a second and a `mood` line
 whenever a character changes mood. `DESKMATES_FOCUS=1` makes a focus session
-one minute instead of 25. `DESKMATES_SPEND_ALERT=0.01` makes Rajni treat any
-spending day as heavy, so his alert pose shows at once.
+one minute instead of 25.
 
 Stop it with ctrl-C. Positions are saved on the way out.
 
@@ -56,33 +55,27 @@ With `DESKMATES_FOCUS=1`.
 | Finish | Wait a minute | He waves, then goes back to wandering. The log prints `happy` then `idle` |
 | Stop early | Click him, then click again | Back to wandering, no wave. The log prints `busy` then `idle` |
 
-## Ajit, the CI watch
-
-He reads one repository. This one has no remote, so point him at a real one:
-
-```
-DESKMATES_DEBUG=1 DESKMATES_REPO=~/path/to/a/repo ./.build/debug/Deskmates
-```
-
-`gh` must be signed in to the account that can see that repository. Check with
-`gh api user -q .login` before you start.
+## Ajit, the battery
 
 | Check | What to do | What should happen |
 |---|---|---|
-| Reads the run | Right-click Ajit | `CI passed: <run name>`, or failed, or running |
-| No gh | Point `DESKMATES_REPO` at a folder with no remote | `CI unknown: gh did not answer`. He stands, he does not look green |
-| Failure | Point him at a repo whose last run failed | Hands to his head. The log prints `mood ajit alert` |
-| In progress | Push something, then click him | Helmet on. The log prints `busy` |
-| Recovery | Let a failed run go green, click him | He punches the air once, then stands |
+| Reads the charge | Right-click Ajit | `Battery <n>%, <h:mm> left`, matching the menu bar |
+| Charging | Plug the Mac in | Helmet on within 30 seconds. The log prints `mood ajit busy` |
+| Unplugging | Pull the cable | Helmet off, back to wandering |
+| Nearly empty | Start with `DESKMATES_BATTERY_LOW=95` on an unplugged Mac | Hands up. The log prints `mood ajit alert` |
+| No battery | Run it on a Mac with no battery | `No battery` in the menu, and he wanders. He must not look empty |
 
-## Rajni, the token spend
+## Rajni, what is running
 
 | Check | What to do | What should happen |
 |---|---|---|
-| Today's figures | Right-click Rajni | `Today: <n> tokens, $<n>` |
-| Matches reality | Compare against your own count of today's transcripts | The same figures |
-| Heavy day | Start with `DESKMATES_SPEND_ALERT=0.01` | He flips a coin. The log prints `mood rajni alert` |
-| Quiet day | Start with `DESKMATES_SPEND_ALERT=10000` | He counts notes while a transcript is being written, otherwise he wanders |
+| Counts the apps | Right-click Rajni | `<n> apps, front: <name>`, then the list |
+| Matches reality | Count your Dock | The same apps. Background helpers are not counted |
+| Front app | Click another app, then right-click him | The front name follows |
+| Filling up | Start with `DESKMATES_APPS_BUSY=2` | He counts notes. The log prints `mood rajni busy` |
+| Crowded | Start with `DESKMATES_APPS_CROWDED=3` | He flips the coin. The log prints `mood rajni alert` |
+| Clearing | Quit apps until you are under the line | Back to wandering |
+| Long list | Open more than ten apps | The menu lists ten, then `and <n> more` |
 
 ## Art
 

@@ -4,6 +4,6 @@ import Foundation
 // Run with: swift run Checks
 
 checkFocusTimer()
-checkCIStatus()
-checkTokenSpend()
+checkBattery()
+checkRunningApps()
 Check.finish()

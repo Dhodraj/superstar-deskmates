@@ -149,8 +149,8 @@ final class Stage {
     private static func job(for name: String) -> Job? {
         switch name {
         case "vijay": return FocusTimer()
-        case "ajit": return CIStatus(repository: watchedRepository())
-        case "rajni": return TokenSpend()
+        case "ajit": return Battery()
+        case "rajni": return RunningApps()
         default: return nil
         }
     }
@@ -163,15 +163,6 @@ final class Stage {
             return 1
         }
         return CGFloat(value)
-    }
-
-    /// Which repository Ajit watches. `DESKMATES_REPO`, or wherever the app was
-    /// started from.
-    private static func watchedRepository() -> URL {
-        if let path = ProcessInfo.processInfo.environment["DESKMATES_REPO"] {
-            return URL(fileURLWithPath: path)
-        }
-        return URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
     }
 
     /// The same list in the menu bar and on a right-click, so there is one way
