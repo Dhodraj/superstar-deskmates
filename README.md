@@ -1,5 +1,7 @@
 # Superstar Deskmates
 
+[![build](https://github.com/Dhodraj/superstar-deskmates/actions/workflows/ci.yml/badge.svg)](https://github.com/Dhodraj/superstar-deskmates/actions/workflows/ci.yml)
+
 Pixel film stars that live on your Mac desktop and do one small job each.
 
 ![three characters on a desktop, one walking](docs/walking.gif)
