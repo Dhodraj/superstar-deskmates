@@ -11,11 +11,8 @@ final class StatusItem: NSObject, NSMenuDelegate {
         self.stage = stage
         item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         super.init()
-        item.button?.image = NSImage(
-            systemSymbolName: "figure.walk",
-            accessibilityDescription: "Superstar Deskmates"
-        )
-        item.button?.image?.isTemplate = true
+        item.button?.image = MenuBarMark.image()
+        item.button?.image?.accessibilityDescription = "Superstar Deskmates"
         menu.delegate = self
         item.menu = menu
     }

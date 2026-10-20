@@ -166,7 +166,14 @@ connection, and none needs a permission prompt.
 
 ## Art
 
-Generated for this project with an image model, one reference per pose, then
+The icon and the menu bar mark are a film slate. Both are drawn in code
+rather than kept as image files, so they rebuild with the app. `scripts/make_logo.py`
+draws the colour icon and `MenuBarMark` draws the one-colour version. Three
+other marks were tried first: three characters on a tile, a D monogram and a
+theatre curtain. The slate won because it holds its shape at 32 pixels and
+says cinema without naming anyone.
+
+The characters are generated with an image model, one reference per pose, then
 imported. Nobody draws pixels by hand unless they want to.
 
 - Size: 192 pixels tall, shown at 192 points. On a Retina display that puts
@@ -197,9 +204,8 @@ open build/Deskmates.app
 ```
 
 The script builds the release binary and puts the SwiftPM resource bundle
-beside it in `Contents/Resources`. It then draws an icon from Vijay's standing
-frame, writes an `Info.plist` with `LSUIElement` set, and signs the result
-ad-hoc. `SMAppService` needs a bundle to register a login
+beside it in `Contents/Resources`. It then draws the icon, writes an `Info.plist`
+with `LSUIElement` set, and signs the result ad-hoc. `SMAppService` needs a bundle to register a login
 item. So **Start at login** appears in the menu only when the app runs from
 one.
 

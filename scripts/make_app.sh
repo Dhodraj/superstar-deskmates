@@ -27,7 +27,7 @@ cp "${BIN}/${NAME}" "${APP}/Contents/MacOS/${NAME}"
 cp -R "${BIN}/${NAME}_DeskmatesCore.bundle" "${APP}/Contents/Resources/"
 
 echo "drawing the icon"
-python3 scripts/make_icon.py Sources/DeskmatesCore/Resources/sprites/vijay build/icon.png
+python3 scripts/make_logo.py build/icon.png
 ICONSET="build/AppIcon.iconset"
 rm -rf "${ICONSET}"
 mkdir -p "${ICONSET}"
