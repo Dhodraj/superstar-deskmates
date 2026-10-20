@@ -122,7 +122,7 @@ to the job their screen persona already does. Three ship in v1.
 |---|---|---|---|
 | Vijay (v1) | Focus timer | "Thalapathy" means commander, and the persona is the elder brother who keeps you on track. Dance numbers are the reward on `happy`. | Red headband over dark hair, moustache and goatee, white shirt and trousers, a red and yellow scarf down the chest, bare forearms. Waving is his `happy` frame. |
 | Ajit (v1) | Last CI run | He races in real Formula and endurance events, so the chequered flag is already his. Green flag and red flag are the two states CI has. | All-grey hair and a white beard, white race suit with red and yellow stripes down the outer seams, red boots. Raising the helmet is his `busy` frame. |
-| Rajni (v1) | AI token spend | The coin toss in *Sivaji: The Boss* is a money gesture, and critics read his sunglasses as the signal that a character is wealthy. The coin flip is his `alert` frame, for the hour the spend runs high. | Black sunglasses, the strongest identifier available, over dark hair with a grey streak. Tan suit over a patterned tie, brown shoes. |
+| Rajni (v1) | AI token spend | The coin toss in *Sivaji: The Boss* is a money gesture, and critics read his sunglasses as the signal that a character is wealthy. The coin flip is his `alert` frame, for the day the spend runs high. | Black sunglasses, the strongest identifier available, over dark hair with a grey streak. Tan suit over a patterned tie, brown shoes. |
 | Dhanush | Uncommitted work piling up | The persona is the underdog facing forces bigger than him, carried by a lithe frame and fierce delivery. That is the job with the widest mood range. | A narrow body. Proportion is the only full-body cue that works at this size, and it separates him from the other four at a glance. |
 | STR | Today's news | The register is charm and satire, which is what a paper read aloud needs. He also changes his look between films, and this job hides most of the face. | Long hair as a block, hands, and a held-up paper. Least face of the five. |
 
@@ -146,6 +146,17 @@ flag. He waves when a red build goes green, and not when a green one stays
 green. The repository is `DESKMATES_REPO`, or wherever the app was started.
 Anything `gh` cannot answer reads as unknown, which stands rather than showing a
 false green.
+
+Rajni reads today's AI spend from the transcripts Claude Code and Codex already
+write under the home folder. Nothing leaves the Mac. His menu shows the day's
+tokens and cost. He counts while a transcript is being written, and flips a
+coin once the day passes the alert figure.
+
+Cost comes from the `cost-state` line Claude Code writes per session, so there
+is no price table to go stale. Codex records no cost, so the money figure is
+the Claude Code one. Cache reads are left out of the token count. The whole
+context is counted again on every request. Including them put a real day at
+1.4 billion tokens, against 21.8 million of actual work.
 
 Characters keep 8 points between them. One that walks into another stops and
 rests rather than standing on top of it.
@@ -214,6 +225,8 @@ Two environment variables:
   others, so prefer 0.5 or 1.
 - `DESKMATES_SPEED` sets the walking speed in points per second. The default
   is 11.
+- `DESKMATES_SPEND_ALERT` is the cost in dollars at which Rajni starts
+  flipping his coin. The default is 20.
 - `DESKMATES_REPO` is the repository Ajit watches. Without it he watches the
   directory the app was started from.
 - `DESKMATES_DEBUG` prints every character's position once a second. The app
@@ -235,8 +248,8 @@ python3 scripts/import_reference.py Art/reference Sources/Deskmates/Resources/sp
 2. Stage. Done. Sheet format with hot reload, `Wanderer`, three panels, menu
    bar item, settings that persist, sleep that stops timers. Characters keep
    clear of each other, save where they stand, and answer a click.
-3. Jobs. Vijay's focus timer and Ajit's CI watch are done. Rajni is next,
-   which parses the usage files.
+3. Jobs. Done for the three v1 characters. Vijay runs a focus timer, Ajit
+   watches CI, Rajni counts the day's AI spend.
 
 Two parts will take a day each whatever the plan: per-pixel hit-testing, and
 behaviour across several monitors and fullscreen Spaces.
