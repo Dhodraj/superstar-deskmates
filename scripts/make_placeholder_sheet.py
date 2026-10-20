@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""Draw placeholder sprite sheets and their Aseprite-shaped JSON.
+"""Draw the character sprite sheets and their Aseprite-shaped JSON.
 
-Real characters come from Aseprite. These exist so the stage has art to load
-before anyone draws a frame, and so the loader is tested against the same JSON
-shape Aseprite writes.
+Each character is authored at 16x16 and doubled, so one cell on the sheet is
+32x32. The art follows the reference images in Art/reference/, cut down to the
+few cues that survive that size.
 
-The three placeholders also test one claim from DESIGN.md: that sunglasses,
-dithered grey hair and a plain face read apart at this size.
+The JSON matches what Aseprite writes with `--format json-array --list-tags`,
+so the loader is tested against the shape it will meet when the art is drawn in
+Aseprite instead.
 """
 import json
 import pathlib
@@ -14,77 +15,229 @@ import struct
 import sys
 import zlib
 
-CELL = 16          # art is authored at 16x16
-SCALE = 2          # and doubled, so one cell on the sheet is 32x32
+CELL = 16
+SCALE = 2
 
-SKIN = (232, 180, 140, 255)
-DARK = (24, 20, 28, 255)
-HAIR = (40, 32, 48, 255)
-SHOE = (90, 70, 55, 255)
+PALETTE = {
+    ".": (0, 0, 0, 0),
+    "S": (232, 180, 140, 255),   # skin
+    "E": (32, 24, 32, 255),      # eye
+    "K": (24, 20, 28, 255),      # black: sunglasses, shoes, moustache
+    "W": (240, 238, 230, 255),   # white cloth
+    "R": (210, 40, 40, 255),     # red
+    "Y": (240, 185, 40, 255),    # yellow
+    "G": (185, 185, 190, 255),   # grey hair
+    "H": (40, 32, 48, 255),      # dark hair
+    "T": (198, 160, 96, 255),    # tan suit
+    "F": (90, 70, 55, 255),      # shoe
+    "O": (24, 20, 28, 255),      # outline, added automatically
+}
 
-BASE = [
+# Vijay: white shirt and trousers, red headband, red and yellow scarf down the
+# chest, rolled sleeves so the forearms are bare.
+VIJAY = [
     "................",
     ".....HHHHHH.....",
     "....HHHHHHHH....",
-    "....HSSSSSSH....",
+    "....RRRRRRRR....",
     "....SSSSSSSS....",
     "....SSESSESS....",
     "....SSSSSSSS....",
     ".....SKKKKS.....",
-    "......SSSS......",
-    "...BBBBBBBBBB...",
-    "..SBBBBBBBBBBS..",
-    "..SBBBBBBBBBBS..",
-    "...BBBBBBBBBB...",
+    "......SKKS......",
+    "...WWWRYWWWWW...",
+    "..SWWWRYWWWWWS..",
+    "..SWWWRYWWWWWS..",
+    "...WWWRYWWWWW...",
 ]
-LEGS_TOGETHER = ["...BBBB..BBBB...", "...BBBB..BBBB...", "...FFFF..FFFF..."]
-LEGS_APART = ["..BBBB....BBBB..", "..BBBB....BBBB..", "..FFFF....FFFF.."]
+# Waving, which is how he arrives in the reference. His `happy` frames.
+VIJAY_WAVE_A = [
+    "..S.............",
+    "..S..HHHHHH.....",
+    "..S.HHHHHHHH....",
+    "...SRRRRRRRR....",
+    "...SSSSSSSSS....",
+    "...SSSESSESS....",
+    "....SSSSSSSS....",
+    ".....SKKKKS.....",
+    "......SKKS......",
+    "...WWWRYWWWWW...",
+    "...WWWRYWWWWWS..",
+    "...WWWRYWWWWWS..",
+    "...WWWRYWWWWW...",
+]
+VIJAY_WAVE_B = [
+    "................",
+    "...S.HHHHHH.....",
+    "...SHHHHHHHH....",
+    "...SRRRRRRRR....",
+    "...SSSSSSSSS....",
+    "...SSSESSESS....",
+    "....SSSSSSSS....",
+    ".....SKKKKS.....",
+    "......SKKS......",
+    "...WWWRYWWWWW...",
+    "...WWWRYWWWWWS..",
+    "...WWWRYWWWWWS..",
+    "...WWWRYWWWWW...",
+]
 
-# Each character overrides a few rows. That is the whole difference between
-# them, which is the point: a silhouette cue is two or three pixels.
+# Ajit: white race suit, grey hair and full grey beard, red and yellow stripes
+# down the outside of the arms and legs, red boots.
+AJIT = [
+    "................",
+    ".....GGGGGG.....",
+    "....GGGGGGGG....",
+    "....GSSSSSSG....",
+    "....SSSSSSSS....",
+    "....SSESSESS....",
+    "....SSSSSSSS....",
+    ".....GGGGGG.....",
+    "......GGGG......",
+    "...RWWWWWWWWR...",
+    "..SRWWWWWWWWRS..",
+    "..SRWWWWWWWWRS..",
+    "...RWWWWWWWWR...",
+]
+# Helmet on, which is what he does when a run is going. His `busy` frames.
+AJIT_HELMET_A = [
+    "................",
+    "....WWWWWWWW....",
+    "...WWWWWWWWWW...",
+    "...WWWWWWWWWW...",
+    "...WKKKKKKKKW...",
+    "...WKKKKKKKKW...",
+    "...WWWWWWWWWW...",
+    "....WWWWWWWW....",
+    "......SSSS......",
+    "...RWWWWWWWWR...",
+    "..SRWWWWWWWWRS..",
+    "..SRWWWWWWWWRS..",
+    "...RWWWWWWWWR...",
+]
+AJIT_HELMET_B = [
+    "................",
+    "....WWWWWWWW....",
+    "...WWWRRWWWWW...",
+    "...WWWWWWWWWW...",
+    "...WKKKYKKKKW...",
+    "...WKKKKKKKKW...",
+    "...WWWWWWWWWW...",
+    "....WWWWWWWW....",
+    "......SSSS......",
+    "...RWWWWWWWWR...",
+    "..SRWWWWWWWWRS..",
+    "..SRWWWWWWWWRS..",
+    "...RWWWWWWWWR...",
+]
+
+# Rajni: tan suit over a white shirt, patterned tie, black sunglasses, dark
+# hair swept back with a grey streak.
+RAJNI = [
+    "................",
+    "....HHHHHHHG....",
+    "...HHHHHHHHGG...",
+    "...HSSSSSSSSG...",
+    "....SSSSSSSS....",
+    "....SKKKKKKS....",
+    "....SSSSSSSS....",
+    "......KKKK......",
+    "......SSSS......",
+    "...TTTWRWTTTT...",
+    "..STTTWRWTTTTS..",
+    "..STTTWRWTTTTS..",
+    "...TTTTRTTTTT...",
+]
+
 CHARACTERS = {
     "vijay": {
-        "shirt": (64, 120, 200, 255),
-        "rows": {},
+        "body": VIJAY,
+        "leg": "W",
+        "shoe": "F",
+        "palette": {"F": (190, 186, 176, 255)},
+        "extra": [("happy", VIJAY_WAVE_A), ("happy", VIJAY_WAVE_B)],
     },
     "ajit": {
-        "shirt": (150, 54, 60, 255),
-        "rows": {
-            1: ".....HGHGHG.....",
-            2: "....GHGHGHGH....",
-            6: "....KSSSSSSK....",
-            7: ".....KKKKKK.....",
-        },
+        "body": AJIT,
+        "leg": "W",
+        "shoe": "R",
+        "stripe": "R",
+        "extra": [("busy", AJIT_HELMET_A), ("busy", AJIT_HELMET_B)],
     },
     "rajni": {
-        "shirt": (226, 224, 214, 255),
-        "rows": {
-            5: "....KKKKKKKK....",
-        },
+        "body": RAJNI,
+        "leg": "T",
+        "shoe": "F",
     },
 }
-DURATION_MS = {"idle": 400, "walk": 120}
+
+DURATION_MS = {"idle": 400, "walk": 120, "happy": 260, "busy": 300}
 
 
-def frame(character, legs, drop=0):
-    rows = [character["rows"].get(i, row) for i, row in enumerate(BASE)] + legs
+def legs(character, apart):
+    """Trouser and shoe rows, with Ajit's suit stripe down the outer seam."""
+    leg, shoe = character["leg"], character["shoe"]
+    stripe = character.get("stripe")
+    # The legs are three wide with a four-wide gap. A narrower gap gets filled
+    # solid by the outline from both sides, and the character reads as one leg.
+    if apart:
+        trouser = f"..{leg * 3}......{leg * 3}.."
+        foot = f"..{shoe * 3}......{shoe * 3}.."
+        if stripe:
+            trouser = f"..{stripe}{leg * 2}......{leg * 2}{stripe}.."
+    else:
+        trouser = f"...{leg * 3}....{leg * 3}..."
+        foot = f"...{shoe * 3}....{shoe * 3}..."
+        if stripe:
+            trouser = f"...{stripe}{leg * 2}....{leg * 2}{stripe}..."
+    return [trouser, trouser, foot]
+
+
+def outline(rows):
+    """Ring the figure in dark pixels.
+
+    Without it a white suit disappears on a pale desktop. The references are
+    drawn the same way. Outlining here, before the art is doubled, keeps the
+    ring the same width as every other pixel.
+    """
+    ringed = [list(row) for row in rows]
+    for y, row in enumerate(rows):
+        for x, char in enumerate(row):
+            if char != ".":
+                continue
+            neighbours = [
+                rows[y + dy][x + dx]
+                for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1))
+                if 0 <= y + dy < CELL and 0 <= x + dx < CELL
+            ]
+            if any(n not in ".O" for n in neighbours):
+                ringed[y][x] = "O"
+    return ["".join(row) for row in ringed]
+
+
+def frame(character, body, apart=False, drop=0):
+    rows = list(body) + legs(character, apart)
     if drop:
         rows = ["." * CELL] * drop + rows[:-drop]
     assert len(rows) == CELL, len(rows)
     for row in rows:
         assert len(row) == CELL, (len(row), row)
-    return rows
+    return outline(rows)
 
 
 def frames_for(character):
-    return [
-        ("idle", frame(character, LEGS_TOGETHER)),
-        ("idle", frame(character, LEGS_TOGETHER, drop=1)),
-        ("walk", frame(character, LEGS_APART)),
-        ("walk", frame(character, LEGS_TOGETHER, drop=1)),
-        ("walk", frame(character, LEGS_APART)),
-        ("walk", frame(character, LEGS_TOGETHER)),
+    body = character["body"]
+    sheet = [
+        ("idle", frame(character, body)),
+        ("idle", frame(character, body, drop=1)),
+        ("walk", frame(character, body, apart=True)),
+        ("walk", frame(character, body, drop=1)),
+        ("walk", frame(character, body, apart=True)),
+        ("walk", frame(character, body)),
     ]
+    for tag, extra in character.get("extra", []):
+        sheet.append((tag, frame(character, extra)))
+    return sheet
 
 
 def write_png(path, width, height, pixels):
@@ -111,16 +264,7 @@ def write_png(path, width, height, pixels):
 
 
 def build(name, character, out):
-    palette = {
-        ".": (0, 0, 0, 0),
-        "H": HAIR,
-        "G": (150, 148, 156, 255),   # the grey half of dithered hair
-        "S": SKIN,
-        "E": (32, 24, 32, 255),
-        "K": DARK,
-        "B": character["shirt"],
-        "F": SHOE,
-    }
+    palette = dict(PALETTE, **character.get("palette", {}))
     sheet = frames_for(character)
     cell = CELL * SCALE
     width, height = cell * len(sheet), cell

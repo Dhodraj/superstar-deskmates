@@ -103,9 +103,9 @@ to the job their screen persona already does. Three ship in v1.
 
 | Character | Job | Why this job | Silhouette |
 |---|---|---|---|
-| Vijay (v1) | Focus timer | "Thalapathy" means commander, and the persona is the elder brother who keeps you on track. Dance numbers are the reward on `happy`. | Clean side part, no facial hair, bright shirt. The plainest face of the five, which is what makes him readable next to the others. |
-| Ajit (v1) | Last CI run | He races in real Formula and endurance events, so the chequered flag is already his. Green flag and red flag are the two states CI has. | Salt and pepper hair, dithered in two tones, with a beard block. IMDb lists the look as a trademark. A helmet variant covers `busy`. |
-| Rajni (v1) | AI token spend | The coin toss in *Sivaji: The Boss* is a money gesture, and critics read his sunglasses as the signal that a character is wealthy. He flips a coin per thousand tokens, and stops flipping at `alert`. | Sunglasses, which is a two-pixel dark bar and the strongest identifier available, over swept-back hair. |
+| Vijay (v1) | Focus timer | "Thalapathy" means commander, and the persona is the elder brother who keeps you on track. Dance numbers are the reward on `happy`. | Red headband over dark hair, moustache and goatee, white shirt and trousers, a red and yellow scarf down the chest, bare forearms. Waving is his `happy` frame. |
+| Ajit (v1) | Last CI run | He races in real Formula and endurance events, so the chequered flag is already his. Green flag and red flag are the two states CI has. | All-grey hair and a full grey beard, white race suit with red stripes down the outer seams, red boots. The helmet covers `busy`. |
+| Rajni (v1) | AI token spend | The coin toss in *Sivaji: The Boss* is a money gesture, and critics read his sunglasses as the signal that a character is wealthy. He flips a coin per thousand tokens, and stops flipping at `alert`. | Black sunglasses, the strongest identifier available, over dark hair with a grey streak. Tan suit, white collar, red tie. |
 | Dhanush | Uncommitted work piling up | The persona is the underdog facing forces bigger than him, carried by a lithe frame and fierce delivery. That is the job with the widest mood range. | A narrow body. Proportion is the only full-body cue that works at this size, and it separates him from the other four at a glance. |
 | STR | Today's news | The register is charm and satire, which is what a paper read aloud needs. He also changes his look between films, and this job hides most of the face. | Long hair as a block, hands, and a held-up paper. Least face of the five. |
 
@@ -199,6 +199,15 @@ Narrow the roster to three for v1. Each extra character is another 15 frames and
 another job, and a half-drawn roster reads worse than three finished ones. Pick
 actors whose silhouette survives 32 pixels: strong hair, glasses, or a face shape
 that still reads when most detail is gone.
+
+Every figure gets a dark outline, added by the generator rather than drawn.
+Without it a white suit disappears on a pale desktop. The outline also decides
+the leg shape. Legs are three pixels wide with a four-pixel gap. A narrower gap
+fills solid from both sides, and the character reads as one leg.
+
+Vijay and Ajit both wear white in their references. They separate on hair colour,
+headband against beard, stripe down the centre against stripes down the seams,
+and pale shoes against red boots.
 
 Likeness is the one open risk. A 32x32 sprite is far from a portrait, and
 caricature of a public figure is normal practice. These are still living people,

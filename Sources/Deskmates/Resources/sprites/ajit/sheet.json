@@ -131,13 +131,57 @@
     "h": 32
    },
    "duration": 120
+  },
+  {
+   "filename": "ajit 6.aseprite",
+   "frame": {
+    "x": 192,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   },
+   "duration": 300
+  },
+  {
+   "filename": "ajit 7.aseprite",
+   "frame": {
+    "x": 224,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 32,
+    "h": 32
+   },
+   "sourceSize": {
+    "w": 32,
+    "h": 32
+   },
+   "duration": 300
   }
  ],
  "meta": {
   "app": "scripts/make_placeholder_sheet.py",
   "format": "RGBA8888",
   "size": {
-   "w": 192,
+   "w": 256,
    "h": 32
   },
   "scale": "1",
@@ -153,6 +197,13 @@
     "name": "walk",
     "from": 2,
     "to": 5,
+    "direction": "forward",
+    "color": "#000000ff"
+   },
+   {
+    "name": "busy",
+    "from": 6,
+    "to": 7,
     "direction": "forward",
     "color": "#000000ff"
    }
