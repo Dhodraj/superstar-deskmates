@@ -368,6 +368,45 @@ transparency, so the shape is added afterwards rather than requested.
 > and no anti-aliasing. No text, no logo, no letters, no watermark, no drop
 > shadow on the background.
 
+### Context for new ideas
+
+Paste this when you want ideas rather than one image.
+
+> I need an app icon. Give me ideas, not finished artwork.
+>
+> The app is called Superstar Deskmates. It puts small pixel characters on a
+> Mac desktop. They walk about, stand around, and each one does a single
+> small job: one runs a focus timer and notices when you wander off to
+> another app, one watches the battery, one counts how many apps you have
+> open. They are caricatures of Tamil film actors, which is the joke: the
+> biggest heroes in Indian cinema, reduced to doing household chores in the
+> corner of your screen.
+>
+> The tone is affectionate and dry. It is a fan's joke, not a parody, and it
+> is told by someone who knows the films. An icon is seen every day, so a
+> gag that only lands once is worse than no gag.
+>
+> Constraints. Square, pixel art, chunky pixels, small palette, hard edges.
+> Filled edge to edge with a dark background, because the rounded corners are
+> cut afterwards and anything in them is lost. No text or letters. It has to
+> still read at 32 pixels, and a one-colour version of the same idea has to
+> read at 16 pixels for the menu bar.
+>
+> Already drawn and rejected, with the reason:
+>
+> - three characters standing in a row: too busy below 64 pixels
+> - a screen with two heads over the top edge: the heads merged into the
+>   frame and it read as a robot face
+> - sunglasses alone: read as a white blob, no silhouette
+> - a film slate: clean, but it is an icon for a video editor
+> - a letter D with a stripe: the cleanest mark, but it said nothing about
+>   the product
+> - theatre curtains around a figure: the figure vanished below 64 pixels
+> - a fan cutout on an easel: the current one, and the one to beat
+>
+> Give me ten ideas, one line each. Say what the shape is and why it is
+> funny, and leave out anything that needs text to work.
+
 Two things to check before you keep it. The figure must still read at 32
 pixels, so squint at it small. And the corners must be plain background, with
 nothing important in them, because they get cut away.
