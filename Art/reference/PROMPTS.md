@@ -28,19 +28,50 @@ are.
 
 ## The walk cycle
 
-This is what went wrong the first time. Asking for "left foot forward" and then
-"right foot forward" produced two figures that stand the same way. The walk has
-no cycle, so the character slides along with its legs frozen.
+This is what went wrong twice. The first prompt asked for "left foot forward"
+and then "right foot forward". The second added arms and the word mirror. Both
+produced two figures that stand the same way.
 
-Both walking figures need describing in full, and the second has to be named as
-the mirror of the first. Every walk prompt below carries this wording:
+The wording was not the real problem. The camera was. These figures face the
+camera, and from the front a leg put forward is almost hidden behind the body.
+Left leg forward and right leg forward make nearly the same shape, so there is
+nothing for the model to draw differently. A mirror of a front view is a front
+view.
 
-> Figure 2 is mid-stride: right leg forward and bent at the knee, left leg back
-> and straight with the heel lifted, left arm swung forward, right arm back.
-> Figure 3 is the exact mirror of figure 2: left leg forward and bent, right
-> leg back and straight with the heel lifted, right arm swung forward, left arm
-> back. The two walking figures must be clearly different from each other. Do
-> not draw the same leg position twice.
+What reads from the front is a foot off the ground. Describe the walk by which
+foot is lifted, not by which leg is forward:
+
+> Figures 2 and 3 are two moments of one walk, seen from the front. They must
+> not look the same.
+>
+> In figure 2 the left foot is flat on the ground and carries his weight. The
+> right knee is raised in front of him, so the right foot hangs clearly off the
+> ground at about shin height. His left arm swings forward and his right arm
+> swings back.
+>
+> In figure 3 the right foot is flat on the ground and carries his weight. The
+> left knee is raised in front of him, so the left foot hangs clearly off the
+> ground at about shin height. His right arm swings forward and his left arm
+> swings back.
+>
+> Do not copy figure 2 into figure 3. Before you finish, check the feet: figure
+> 2 has the right foot in the air, figure 3 has the left foot in the air. If
+> both figures have both feet on the ground, the walk is wrong.
+
+### If it still comes back the same
+
+Generate the two walk poses as two images rather than as part of a strip, one
+pose per prompt. The importer reads single-pose files as well as strips, and
+the tag comes from the file name before the dash:
+
+    Art/reference/vijay/walk-a.png
+    Art/reference/vijay/walk-b.png
+
+Then ask for the strip without its walking figures, and name it for what is
+left: `strip-idle-happy.png`.
+
+Do not ask for a side view of the walk and a front view of everything else.
+The character would turn on the spot every time it started walking.
 
 ## Shared rules
 
@@ -63,13 +94,20 @@ Save as `Art/reference/vijay/strip-idle-walk-walk-happy.png`.
 > Pixel art sprite strip of the same man as the attached image. Four full-body
 > figures in one horizontal row.
 >
-> Figure 1 stands still with his arms down. Figure 2 is mid-stride: right leg
-> forward and bent at the knee, left leg back and straight with the heel
-> lifted, left arm swung forward, right arm back. Figure 3 is the exact mirror
-> of figure 2: left leg forward and bent, right leg back and straight with the
-> heel lifted, right arm swung forward, left arm back. The two walking figures
-> must be clearly different from each other. Do not draw the same leg position
-> twice. Figure 4 waves with one arm raised high.
+> Figure 1 stands still with his arms down.
+>
+> Figures 2 and 3 are two moments of one walk, seen from the front. They must
+> not look the same. In figure 2 the left foot is flat on the ground and
+> carries his weight, the right knee is raised in front of him so the right
+> foot hangs clearly off the ground at about shin height, his left arm swings
+> forward and his right arm swings back. In figure 3 the right foot is flat on
+> the ground and carries his weight, the left knee is raised in front of him so
+> the left foot hangs clearly off the ground at about shin height, his right
+> arm swings forward and his left arm swings back. Do not copy figure 2 into
+> figure 3. Before you finish, check the feet: figure 2 has the right foot in
+> the air, figure 3 has the left foot in the air.
+>
+> Figure 4 waves with one arm raised high.
 >
 > Keep his face, hair, headband, scarf and clothes exactly as in the attached
 > image. Drop the stage, the railing and the lights. Show only the man, head to
@@ -88,13 +126,20 @@ Save as `Art/reference/ajit/strip-idle-walk-walk-busy.png`.
 > Pixel art sprite strip of the same man as the attached image. Four full-body
 > figures in one horizontal row.
 >
-> Figure 1 stands still with his arms down. Figure 2 is mid-stride: right leg
-> forward and bent at the knee, left leg back and straight with the heel
-> lifted, left arm swung forward, right arm back. Figure 3 is the exact mirror
-> of figure 2: left leg forward and bent, right leg back and straight with the
-> heel lifted, right arm swung forward, left arm back. The two walking figures
-> must be clearly different from each other. Do not draw the same leg position
-> twice. Figure 4 lifts the racing helmet to put it on.
+> Figure 1 stands still with his arms down.
+>
+> Figures 2 and 3 are two moments of one walk, seen from the front. They must
+> not look the same. In figure 2 the left foot is flat on the ground and
+> carries his weight, the right knee is raised in front of him so the right
+> foot hangs clearly off the ground at about shin height, his left arm swings
+> forward and his right arm swings back. In figure 3 the right foot is flat on
+> the ground and carries his weight, the left knee is raised in front of him so
+> the left foot hangs clearly off the ground at about shin height, his right
+> arm swings forward and his left arm swings back. Do not copy figure 2 into
+> figure 3. Before you finish, check the feet: figure 2 has the right foot in
+> the air, figure 3 has the left foot in the air.
+>
+> Figure 4 lifts the racing helmet to put it on.
 >
 > Keep his face, grey hair and beard, white race suit and red boots exactly as
 > in the attached image.
@@ -112,13 +157,20 @@ Save as `Art/reference/rajni/strip-idle-walk-walk-alert.png`.
 > Pixel art sprite strip of the same man as the attached image. Four full-body
 > figures in one horizontal row.
 >
-> Figure 1 stands still with his arms down. Figure 2 is mid-stride: right leg
-> forward and bent at the knee, left leg back and straight with the heel
-> lifted, left arm swung forward, right arm back. Figure 3 is the exact mirror
-> of figure 2: left leg forward and bent, right leg back and straight with the
-> heel lifted, right arm swung forward, left arm back. The two walking figures
-> must be clearly different from each other. Do not draw the same leg position
-> twice. Figure 4 flips a coin from one hand, chin lifted.
+> Figure 1 stands still with his arms down.
+>
+> Figures 2 and 3 are two moments of one walk, seen from the front. They must
+> not look the same. In figure 2 the left foot is flat on the ground and
+> carries his weight, the right knee is raised in front of him so the right
+> foot hangs clearly off the ground at about shin height, his left arm swings
+> forward and his right arm swings back. In figure 3 the right foot is flat on
+> the ground and carries his weight, the left knee is raised in front of him so
+> the left foot hangs clearly off the ground at about shin height, his right
+> arm swings forward and his left arm swings back. Do not copy figure 2 into
+> figure 3. Before you finish, check the feet: figure 2 has the right foot in
+> the air, figure 3 has the left foot in the air.
+>
+> Figure 4 flips a coin from one hand, chin lifted.
 >
 > Keep his face, sunglasses, hair and tan suit exactly as in the attached
 > image. The attached image stops at his chest. Show him head to shoes, in the
@@ -191,7 +243,8 @@ Save as `Art/reference/rajni/strip-busy.png`.
 ## If a strip comes back wrong
 
 - Both walking figures stand the same way: the walk will not animate. Ask
-  again, and name both legs and both arms in each figure.
+  again, and say which foot is off the ground in each figure. A leg put forward
+  does not read from the front; a lifted foot does.
 - Figures touching: the importer counts the wrong number and stops with a
   message. Ask again for more space between them.
 - One figure taller than the rest: the importer scales the whole strip by its
