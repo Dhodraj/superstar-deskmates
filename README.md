@@ -22,7 +22,7 @@ Needs macOS 14 or later and the Xcode Command Line Tools.
 open build/Deskmates.app
 ```
 
-That builds `Deskmates.app`. No Dock icon, a cutout figure for an icon, and
+That builds `Deskmates.app`. No Dock icon, its own icon, and
 an ad-hoc signature. That signature is enough to run on the Mac
 that built it. Move it to `/Applications` and the menu bar gains a **Start at
 login** entry.

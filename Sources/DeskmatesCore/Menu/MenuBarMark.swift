@@ -1,28 +1,29 @@
 import AppKit
 
-/// The menu bar mark: the same cutout as the app icon, in one colour.
+/// The menu bar mark: the character from the app icon, in one colour.
 ///
 /// Drawn rather than shipped as an image, for the same reason the app icon is:
 /// one definition, nothing to keep in step. Marked as a template so macOS
 /// tints it for a light or dark menu bar.
 enum MenuBarMark {
-    /// 16 by 16, where `#` is drawn and `.` is left clear. Solid, because
-    /// detail inside a 16 pixel figure turns to noise.
+    /// 16 by 16, where `#` is drawn and `.` is left clear. The figure holds
+    /// up a speech bubble, which is the one part of the icon that still reads
+    /// at this size. The clock inside it does not, so it is left out.
     private static let rows = [
         "................",
-        "................",
-        "......####......",
-        "......####......",
-        "......####......",
-        "......####......",
-        "....########....",
-        "...##########...",
-        "...##########...",
-        "....########....",
-        ".....##..##.....",
-        ".....##..##.....",
-        "...##########...",
-        "..############..",
+        "..........#####.",
+        "..........#####.",
+        "...####...#####.",
+        "..######..#####.",
+        "..######...###..",
+        "..######..##....",
+        "..#######.#.....",
+        "..########......",
+        "..######........",
+        "..######........",
+        "..######........",
+        "..##..##........",
+        "..##..##........",
         "................",
         "................",
     ]
