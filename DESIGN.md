@@ -166,9 +166,9 @@ connection, and none needs a permission prompt.
 
 ## Art
 
-The icon and the menu bar mark are a flat cutout on a base: the standee
-propped outside a theatre, and what a character on a desktop is. Both are
-drawn in code rather than kept as image files, so they rebuild with the app.
+The icon and the menu bar mark are a flat cutout on a base. That is the
+standee propped outside a theatre, and also what a character on a desktop is.
+Both are drawn in code rather than kept as image files, so they rebuild with the app.
 `scripts/make_logo.py` draws the colour icon, and `MenuBarMark` draws the
 one-colour version.
 
