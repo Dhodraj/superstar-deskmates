@@ -7,15 +7,16 @@ JSON the app already reads.
 
     python3 scripts/import_reference.py Art/reference Sources/Deskmates/Resources/sprites
 
-Layout it expects, where the file name is the animation tag:
+Three layouts, in the order the importer prefers them:
 
-    Art/reference/vijay/idle.png
-    Art/reference/vijay/walk-a.png
-    Art/reference/vijay/walk-b.png
-    Art/reference/vijay/happy.png
+    Art/reference/vijay/strip-idle-walk-walk-happy.png
+    Art/reference/vijay/idle.png, walk-a.png, walk-b.png, happy.png
+    Art/reference/vijay.png
 
-A bare `Art/reference/vijay.png` is read as a single idle frame, which is what
-the first references were.
+A strip holds every pose in one image, separated by background. That is the one
+to ask an image model for: poses generated together share a camera, so they
+come back at one scale. Poses generated one at a time do not, and the cast ends
+up at different sizes. The tags come from the file name, in order.
 
 Resolution is the whole point. Spritefolk draws its characters at about
 120x193 real pixels. Art at 32x32 stretched to the same size cannot carry a
@@ -138,15 +139,43 @@ def resize(width, height, pixels, new_width, new_height):
     return out
 
 
+def columns(width, height, pixels):
+    """Split a strip into one figure per run of non-empty columns."""
+    filled = [
+        any(pixels[y * width + x][3] > 8 for y in range(height))
+        for x in range(width)
+    ]
+    spans, start = [], None
+    for x, has_content in enumerate(filled):
+        if has_content and start is None:
+            start = x
+        elif not has_content and start is not None:
+            spans.append((start, x - 1))
+            start = None
+    if start is not None:
+        spans.append((start, width - 1))
+    return spans
+
+
+def crop_box(width, pixels, left, right, height):
+    w = right - left + 1
+    cut = [pixels[y * width + left + x] for y in range(height) for x in range(w)]
+    return crop(w, height, cut)
+
+
 def poses_for(directory, name):
     folder = directory / name
     if folder.is_dir():
+        strips = sorted(folder.glob("strip-*.png"))
+        if strips:
+            return [("strip", strips[0], strips[0].stem.split("-")[1:])]
         found = sorted(p for p in folder.iterdir() if p.suffix.lower() == ".png")
-        return [(p.stem.split("-")[0], p) for p in found]
-    return [("idle", directory / f"{name}.png")]
+        return [(p.stem.split("-")[0], p, None) for p in found]
+    return [("idle", directory / f"{name}.png", None)]
 
 
-def load(path, work):
+def load(path, work, tags):
+    """Return the figures in one file, cropped but not yet scaled."""
     small = work / f"{path.stem}-{abs(hash(str(path))) % 10000}.png"
     subprocess.run(
         ["sips", "-Z", str(WORK_HEIGHT), str(path), "--out", str(small)],
@@ -155,21 +184,39 @@ def load(path, work):
     )
     width, height, pixels = pixelpng.read(small)
     pixels = cut_background(width, height, pixels)
-    width, height, pixels = crop(width, height, pixels)
-    new_width = max(1, round(width * TARGET_HEIGHT / height))
-    return new_width, TARGET_HEIGHT, resize(width, height, pixels, new_width, TARGET_HEIGHT)
+    if tags is None:
+        return [crop(width, height, pixels)]
+
+    spans = columns(width, height, pixels)
+    assert len(spans) == len(tags), (
+        f"{path.name}: {len(tags)} tags in the name but {len(spans)} figures in the image"
+    )
+    return [crop_box(width, pixels, left, right, height) for left, right in spans]
 
 
 def build(name, poses, out_dir, work):
-    frames = []
-    for tag, path in poses:
-        width, height, pixels = load(path, work)
-        frames.append((tag, width, height, pixels))
-        print(f"  {tag:6} {path.name:16} {width}x{height}")
+    cut = []
+    for tag, path, tags in poses:
+        figures = load(path, work, tags)
+        for figure, figure_tag in zip(figures, tags or [tag]):
+            cut.append((figure_tag, figure))
+        print(f"  {path.name:34} {len(figures)} figure(s)")
 
+    # One scale for every pose. Scaling each figure to the same height on its
+    # own would stretch a crouch up to match a stand, and the character would
+    # change size between frames.
+    tallest = max(height for _, (_, height, _) in cut)
+    factor = TARGET_HEIGHT / tallest
+
+    frames = []
+    for tag, (width, height, pixels) in cut:
+        new_width = max(1, round(width * factor))
+        new_height = max(1, round(height * factor))
+        frames.append((tag, new_width, new_height, resize(width, height, pixels, new_width, new_height)))
+        print(f"  {tag:6} {new_width}x{new_height}")
     frames.sort(key=lambda f: (TAG_ORDER.index(f[0]) if f[0] in TAG_ORDER else 99, f[0]))
     cell_w = max(f[1] for f in frames) + PAD * 2
-    cell_h = TARGET_HEIGHT + PAD * 2
+    cell_h = max(f[2] for f in frames) + PAD * 2
     sheet_w, sheet_h = cell_w * len(frames), cell_h
     sheet = [(0, 0, 0, 0)] * (sheet_w * sheet_h)
 
