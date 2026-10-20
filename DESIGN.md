@@ -205,8 +205,14 @@ caricature of a public figure is normal practice. These are still living people,
 and a public repo is not a private toy. If it ever becomes a problem, the characters
 keep their art and lose their names, and the Tamil job words take over.
 
-AI-generated frames stay out of the repo and in `.gitignore`. Any borrowed
-reference art is recorded in `THIRD_PARTY_ART.md` with its source URL and licence.
+References live in `Art/reference/`, one image per character. They are
+generated for this project with an image model, so they carry no third-party
+licence and ship with the repo. They are not the art: they are what the pixels
+are drawn from.
+
+Art taken from anyone else, generated or not, is recorded in
+`THIRD_PARTY_ART.md`. Give its source URL, and the licence as stated on the page
+the day you downloaded it.
 
 ## Running it
 
