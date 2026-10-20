@@ -243,5 +243,5 @@ behaviour across several monitors and fullscreen Spaces.
 
 ## Open questions
 
-- Which three actors ship in v1?
-- Public GitHub repo now, or local until the spike runs?
+- Public GitHub repo now, or local for a while longer?
+- Does a character need a `sleep` pose, or is hiding it enough?
