@@ -13,7 +13,7 @@ final class StatusItem: NSObject, NSMenuDelegate {
         super.init()
         item.button?.image = NSImage(
             systemSymbolName: "figure.walk",
-            accessibilityDescription: "Sprite Folk"
+            accessibilityDescription: "Superstar Deskmates"
         )
         item.button?.image?.isTemplate = true
         menu.delegate = self

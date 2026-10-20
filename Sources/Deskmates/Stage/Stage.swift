@@ -25,11 +25,11 @@ final class Stage {
             .sorted() ?? []
     }
 
-    /// Art comes from the bundle, unless `SPRITEFOLK_SPRITES` points at the
+    /// Art comes from the bundle, unless `DESKMATES_SPRITES` points at the
     /// source tree. Drawing needs the second, because hot reload cannot watch a
     /// copy that only changes when the app is rebuilt.
     private static func locateSprites() -> URL {
-        if let override = ProcessInfo.processInfo.environment["SPRITEFOLK_SPRITES"] {
+        if let override = ProcessInfo.processInfo.environment["DESKMATES_SPRITES"] {
             return URL(fileURLWithPath: override)
         }
         return Bundle.module.resourceURL!.appendingPathComponent("sprites")
@@ -49,11 +49,11 @@ final class Stage {
     }
 
     /// Prints where every character stands, once a second, when
-    /// `SPRITEFOLK_DEBUG` is set. The stage has no window to inspect.
+    /// `DESKMATES_DEBUG` is set. The stage has no window to inspect.
     private var debugTimer: Timer?
 
     private func startDebugTrace() {
-        guard ProcessInfo.processInfo.environment["SPRITEFOLK_DEBUG"] != nil else { return }
+        guard ProcessInfo.processInfo.environment["DESKMATES_DEBUG"] != nil else { return }
         debugTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             guard let self else { return }
             let screen = NSScreen.main?.visibleFrame ?? .zero

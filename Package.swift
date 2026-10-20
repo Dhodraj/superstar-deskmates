@@ -2,12 +2,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "SpriteFolk",
+    name: "Deskmates",
     platforms: [.macOS(.v14)],
     targets: [
         .executableTarget(
-            name: "SpriteFolk",
-            path: "Sources/SpriteFolk",
+            name: "Deskmates",
+            path: "Sources/Deskmates",
             resources: [.copy("Resources")]
         )
     ]

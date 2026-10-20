@@ -4,7 +4,7 @@ import Foundation
 /// in Aseprite shows up without a rebuild.
 ///
 /// Only useful when the app reads sprites from the source tree rather than from
-/// its bundle. Set `SPRITEFOLK_SPRITES` to that directory while drawing.
+/// its bundle. Set `DESKMATES_SPRITES` to that directory while drawing.
 final class SheetWatcher {
     private let source: DispatchSourceFileSystemObject
     private var pending: DispatchWorkItem?

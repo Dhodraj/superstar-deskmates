@@ -1,6 +1,6 @@
 import AppKit
 
-/// Sprite Folk. Pixel characters on the desktop, one job each.
+/// Superstar Deskmates. Pixel characters on the desktop, one job each.
 ///
 /// This is the stage only: characters walk, swap and sleep. No job reads any
 /// data yet.

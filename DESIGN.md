@@ -1,11 +1,16 @@
-# Sprite Folk: design
+# Superstar Deskmates: design
 
 Pixel characters that live on the macOS desktop. Each character does one job.
 Open source, MIT, no paywall, no account, no telemetry.
 
 Inspired by [Spritefolk](https://spritefolk.com/), which is a paid closed-source
 Swift app. This is a clean build from observed behaviour, not a port. Nothing is
-decompiled or copied.
+decompiled or copied. The name is different for the same reason: Spritefolk is
+theirs.
+
+In code the name is plain `Deskmates`: the package, the binary, the
+`DESKMATES_` environment variables, and the support folder. Superstar belongs
+on the product, not in every path.
 
 ## Non-goals
 
@@ -79,7 +84,7 @@ character with only `idle` still runs, because a missing mood falls back to
 
 ```
 Package.swift                    SwiftPM executable, no .xcodeproj
-Sources/SpriteFolk/
+Sources/Deskmates/
   App.swift                      NSApplication, LSUIElement
   Stage/CharacterPanel.swift     the panel
   Stage/SpriteView.swift         alpha hit-test, frame timer
@@ -206,7 +211,7 @@ reference art is recorded in `THIRD_PARTY_ART.md` with its source URL and licenc
 ## Running it
 
 ```
-swift build && ./.build/debug/SpriteFolk
+swift build && ./.build/debug/Deskmates
 ```
 
 No Dock icon. The menu bar item is the only way in when every character is
@@ -214,17 +219,17 @@ hidden. Right-click a character for the same menu.
 
 Two environment variables:
 
-- `SPRITEFOLK_SPRITES` points at a sprites directory. Set it to
-  `Sources/SpriteFolk/Resources/sprites` while drawing, because hot reload
+- `DESKMATES_SPRITES` points at a sprites directory. Set it to
+  `Sources/Deskmates/Resources/sprites` while drawing, because hot reload
   cannot watch the copy inside the built bundle.
-- `SPRITEFOLK_DEBUG` prints every character's position once a second. The app
+- `DESKMATES_DEBUG` prints every character's position once a second. The app
   has no window to inspect, so this is how you find a character that is not
   where you expect.
 
 Placeholder art is generated, not drawn:
 
 ```
-python3 scripts/make_placeholder_sheet.py Sources/SpriteFolk/Resources/sprites
+python3 scripts/make_placeholder_sheet.py Sources/Deskmates/Resources/sprites
 ```
 
 ## Milestones
