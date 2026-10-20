@@ -3,11 +3,6 @@
 Pixel characters that live on the macOS desktop. Each character does one job.
 Open source, MIT, no paywall, no account, no telemetry.
 
-Inspired by [Spritefolk](https://spritefolk.com/), which is a paid closed-source
-Swift app. This is a clean build from observed behaviour, not a port. Nothing is
-decompiled or copied. The name is different for the same reason: Spritefolk is
-theirs.
-
 In code the name is plain `Deskmates`: the package, the binary, the
 `DESKMATES_` environment variables, and the support folder. Superstar belongs
 on the product, not in every path.
@@ -157,8 +152,7 @@ report, so he stands.
 
 Rajni notices who is in the room: the apps you have open and the one in front.
 He counts while the desk fills up, and the coin comes out once it is crowded.
-His menu lists them. This is the one job copied straight from Spritefolk, where
-Dhiru does the same thing.
+His menu lists them.
 
 Every job reads the machine in front of it. None of them opens a network
 connection, and none needs a permission prompt.

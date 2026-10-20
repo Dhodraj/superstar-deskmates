@@ -1,50 +1,41 @@
 # Superstar Deskmates
 
-Pixel characters that live on your Mac desktop. Each one does a single job and
-reads nothing but the machine in front of it.
+Pixel film stars that live on your Mac desktop and do one small job each.
 
-Three characters ship today, drawn after Tamil film actors.
+<!-- MEDIA:HERO -->
 
-| Character | Job | What you see |
-|---|---|---|
-| Vijay | Focus timer | Click him to start. He folds his arms for the session, reacts if you leave the app you started in, and waves when it ends |
-| Ajit | Battery | Helmet on while the Mac charges, hands up when the charge runs low |
-| Rajni | What is running | Counts the apps you have open, and flips his coin once the desk is crowded |
+No account. No network. No permission prompts. Nothing leaves the Mac.
 
-No account, no network, no permission prompts. Nothing leaves the Mac.
-
-## Running it
+```
+git clone git@github.com:Dhodraj/superstar-deskmates.git
+cd superstar-deskmates
+./scripts/make_app.sh && open build/Deskmates.app
+```
 
 Needs macOS 14 or later and the Xcode Command Line Tools.
 
-```
-./scripts/make_app.sh
-open build/Deskmates.app
-```
+## Who is on your desk
 
-That builds `Deskmates.app`. No Dock icon, its own icon, and
-an ad-hoc signature. That signature is enough to run on the Mac
-that built it. Move it to `/Applications` and the menu bar gains a **Start at
-login** entry.
+| | Job | What you see |
+|---|---|---|
+| **Vijay** | Focus timer | Click him and he folds his arms for the session, with the countdown over his head. Leave the app you started in and he notices. He waves when you are done |
+| **Ajit** | Battery | Helmet on while the Mac charges, hands up when the charge runs low |
+| **Rajni** | What is running | Counts the apps you have open, and flips his coin once the desk is crowded |
 
-Shipping it to anyone else needs a Developer ID and notarisation, which this
-does not have yet.
+<!-- MEDIA:CHARACTERS -->
 
-For a quick run during development, skip the bundle:
+They walk about on their own, keep out of each other's way, and remember where
+they were standing. Drag one to move it. Click one to talk to its job. Clicks
+pass through the transparent pixels around a character, so the window behind
+still gets them.
 
-```
-swift build && ./.build/debug/Deskmates
-```
+There is no Dock icon. The menu bar is the way in, and a right-click on a
+character gets you the same menu plus whatever that character's job offers.
 
-There is no Dock icon. The menu bar item is the way in when every character is
-hidden, and a right-click on a character does the same.
+## Make it yours
 
-Drag a character to move it. Click it to talk to its job. Clicks pass through
-the transparent pixels around it, so the window behind still gets them.
-
-## Settings
-
-All through the environment, because there is nowhere else yet.
+<details>
+<summary>Settings, all through the environment</summary>
 
 | Variable | What it does |
 |---|---|
@@ -58,18 +49,21 @@ All through the environment, because there is nowhere else yet.
 | `DESKMATES_SPRITES` | Read art from a folder instead of the bundle |
 | `DESKMATES_DEBUG` | Print each character's position and every mood change |
 
-## Art
+</details>
 
-The characters are drawn from reference images, one sprite sheet row per
-character. `Art/reference/PROMPTS.md` holds the brief that produced them, and
-the importer turns them into sheets:
+## Add your own
 
-```
-python3 scripts/import_reference.py Art/reference Sources/DeskmatesCore/Resources/sprites
-```
+Pull requests are welcome, and the two interesting kinds are easy.
 
-Sheets use Aseprite's own JSON, so a character drawn by hand drops in the same
-way.
+**A new character** is four images and one line of Swift. Generate the poses,
+run the importer, name the job. No Swift beyond that line.
+
+**A new job** is one file. A job reports a mood, and the sprite sheet decides
+what that looks like. So a job never names a frame, moves a window, or knows
+which character it belongs to.
+
+`CONTRIBUTING.md` walks through both. `DESIGN.md` explains why it is built
+this way.
 
 ## Checks
 
@@ -77,21 +71,7 @@ way.
 swift run Checks
 ```
 
-The jobs are covered there. Anything needing a cursor is in `CHECKS.md`.
-
-## How it is put together
-
-`DESIGN.md` has the reasoning. The short version: a job reports a mood, and the
-sprite sheet decides what that looks like. A job never names a frame, moves a
-window, or knows which character it belongs to. Art and behaviour can be
-replaced one at a time.
-
-## Credits
-
-Inspired by [Spritefolk](https://spritefolk.com/), a paid closed-source Mac app
-with the same idea. This is a clean build from observed behaviour, not a port.
-
-The characters are caricatures of living people. If that ever becomes a
-problem, the art stays and the names go.
+Sixty checks over the jobs and the menus. Anything needing a cursor is listed
+in `CHECKS.md`.
 
 MIT licensed.
