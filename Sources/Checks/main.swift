@@ -5,4 +5,5 @@ import Foundation
 
 checkFocusTimer()
 checkCIStatus()
+checkTokenSpend()
 Check.finish()

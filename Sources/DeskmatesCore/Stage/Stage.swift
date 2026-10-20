@@ -150,6 +150,7 @@ final class Stage {
         switch name {
         case "vijay": return FocusTimer()
         case "ajit": return CIStatus(repository: watchedRepository())
+        case "rajni": return TokenSpend()
         default: return nil
         }
     }
