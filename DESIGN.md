@@ -166,16 +166,21 @@ connection, and none needs a permission prompt.
 
 ## Art
 
-The icon and the menu bar mark are a flat cutout on a base. That is the
-standee propped outside a theatre, and also what a character on a desktop is.
-Both are drawn in code rather than kept as image files, so they rebuild with the app.
-`scripts/make_logo.py` draws the colour icon, and `MenuBarMark` draws the
-one-colour version.
+The icon is drawn artwork at `Art/icon-source.png`: a character holding up a
+speech bubble with a clock in it. `scripts/make_logo.py` scales it and cuts
+the rounded corners, so the source can stay a plain square. Without that file
+the script falls back to a mark drawn in code.
 
-Six other marks were drawn and rejected. Three characters on a tile, a screen
-with heads over it, sunglasses, a film slate, a D monogram, and a theatre
-curtain. The cutout won on one test. It is still a figure at 16 pixels, which
-is the size the menu bar uses.
+The menu bar needs its own mark, not the same picture shrunk. It is 16 pixels
+and one colour, so `MenuBarMark` draws the figure and the bubble, and leaves
+out the clock. The clock turns to noise at that size.
+
+Ten marks were drawn and rejected on the way. Three characters on a tile, a
+screen with heads over it, sunglasses, a film slate, a D monogram, a theatre
+curtain, a fan cutout, a hero casting a giant shadow, a moustached cursor, and
+a garlanded battery. The test that killed most of them was the 16 pixel
+one-colour version, not the full size one.
+
 
 The characters are generated with an image model, one reference per pose, then
 imported. Nobody draws pixels by hand unless they want to.
