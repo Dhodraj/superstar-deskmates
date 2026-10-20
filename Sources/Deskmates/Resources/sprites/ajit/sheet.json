@@ -5,7 +5,7 @@
    "frame": {
     "x": 0,
     "y": 0,
-    "w": 99,
+    "w": 89,
     "h": 194
    },
    "rotated": false,
@@ -13,21 +13,87 @@
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 99,
+    "w": 89,
     "h": 194
    },
    "sourceSize": {
-    "w": 99,
+    "w": 89,
     "h": 194
    },
    "duration": 400
+  },
+  {
+   "filename": "ajit 1.aseprite",
+   "frame": {
+    "x": 89,
+    "y": 0,
+    "w": 89,
+    "h": 194
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 89,
+    "h": 194
+   },
+   "sourceSize": {
+    "w": 89,
+    "h": 194
+   },
+   "duration": 150
+  },
+  {
+   "filename": "ajit 2.aseprite",
+   "frame": {
+    "x": 178,
+    "y": 0,
+    "w": 89,
+    "h": 194
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 89,
+    "h": 194
+   },
+   "sourceSize": {
+    "w": 89,
+    "h": 194
+   },
+   "duration": 150
+  },
+  {
+   "filename": "ajit 3.aseprite",
+   "frame": {
+    "x": 267,
+    "y": 0,
+    "w": 89,
+    "h": 194
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 89,
+    "h": 194
+   },
+   "sourceSize": {
+    "w": 89,
+    "h": 194
+   },
+   "duration": 300
   }
  ],
  "meta": {
   "app": "scripts/import_reference.py",
   "format": "RGBA8888",
   "size": {
-   "w": 99,
+   "w": 356,
    "h": 194
   },
   "scale": "1",
@@ -36,6 +102,20 @@
     "name": "idle",
     "from": 0,
     "to": 0,
+    "direction": "forward",
+    "color": "#000000ff"
+   },
+   {
+    "name": "walk",
+    "from": 1,
+    "to": 2,
+    "direction": "forward",
+    "color": "#000000ff"
+   },
+   {
+    "name": "busy",
+    "from": 3,
+    "to": 3,
     "direction": "forward",
     "color": "#000000ff"
    }

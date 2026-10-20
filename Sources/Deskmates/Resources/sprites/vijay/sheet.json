@@ -5,7 +5,7 @@
    "frame": {
     "x": 0,
     "y": 0,
-    "w": 175,
+    "w": 91,
     "h": 194
    },
    "rotated": false,
@@ -13,21 +13,87 @@
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 175,
+    "w": 91,
     "h": 194
    },
    "sourceSize": {
-    "w": 175,
+    "w": 91,
     "h": 194
    },
    "duration": 400
+  },
+  {
+   "filename": "vijay 1.aseprite",
+   "frame": {
+    "x": 91,
+    "y": 0,
+    "w": 91,
+    "h": 194
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 91,
+    "h": 194
+   },
+   "sourceSize": {
+    "w": 91,
+    "h": 194
+   },
+   "duration": 150
+  },
+  {
+   "filename": "vijay 2.aseprite",
+   "frame": {
+    "x": 182,
+    "y": 0,
+    "w": 91,
+    "h": 194
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 91,
+    "h": 194
+   },
+   "sourceSize": {
+    "w": 91,
+    "h": 194
+   },
+   "duration": 150
+  },
+  {
+   "filename": "vijay 3.aseprite",
+   "frame": {
+    "x": 273,
+    "y": 0,
+    "w": 91,
+    "h": 194
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 91,
+    "h": 194
+   },
+   "sourceSize": {
+    "w": 91,
+    "h": 194
+   },
+   "duration": 260
   }
  ],
  "meta": {
   "app": "scripts/import_reference.py",
   "format": "RGBA8888",
   "size": {
-   "w": 175,
+   "w": 364,
    "h": 194
   },
   "scale": "1",
@@ -36,6 +102,20 @@
     "name": "idle",
     "from": 0,
     "to": 0,
+    "direction": "forward",
+    "color": "#000000ff"
+   },
+   {
+    "name": "walk",
+    "from": 1,
+    "to": 2,
+    "direction": "forward",
+    "color": "#000000ff"
+   },
+   {
+    "name": "happy",
+    "from": 3,
+    "to": 3,
     "direction": "forward",
     "color": "#000000ff"
    }
