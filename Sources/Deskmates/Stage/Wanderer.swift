@@ -10,6 +10,12 @@ final class Wanderer {
         case walking(toX: CGFloat)
     }
 
+    /// Where the other characters are standing, so this one does not walk
+    /// through them. Supplied by the stage, which is the only thing that knows.
+    var neighbours: () -> [NSRect] = { [] }
+    /// Called when a walk ends, so the stage can remember the new position.
+    var onArrived: () -> Void = {}
+
     private weak var panel: CharacterPanel?
     private var state: State = .resting(until: .distantPast)
     private var timer: Timer?
@@ -23,6 +29,8 @@ final class Wanderer {
 
     /// Points per second. Slow enough to read as a stroll at this sprite size.
     private let speed: CGFloat = 26
+    /// Gap kept between characters.
+    private let clearance: CGFloat = 8
     private let tick: TimeInterval = 1.0 / 30
 
     init(panel: CharacterPanel) {
@@ -53,6 +61,17 @@ final class Wanderer {
         state = .resting(until: Date().addingTimeInterval(1))
     }
 
+    /// True when the next step would put this character on top of another.
+    private func blocked(panel: CharacterPanel, movingTo nextX: CGFloat) -> Bool {
+        let next = NSRect(
+            x: nextX - clearance,
+            y: panel.frame.minY,
+            width: panel.frame.width + clearance * 2,
+            height: panel.frame.height
+        )
+        return neighbours().contains { $0.intersects(next) }
+    }
+
     private func step() {
         guard !paused, let panel, let bounds = (panel.screen ?? NSScreen.main)?.visibleFrame else { return }
 
@@ -73,9 +92,17 @@ final class Wanderer {
                 panel.setFrameOrigin(NSPoint(x: x.rounded(), y: panel.frame.minY))
                 state = .resting(until: Date().addingTimeInterval(.random(in: 3...12)))
                 panel.spriteView.play("idle")
+                onArrived()
                 return
             }
-            x += remaining > 0 ? speed * tick : -speed * tick
+            let stepX = remaining > 0 ? speed * tick : -speed * tick
+            if blocked(panel: panel, movingTo: x + stepX) {
+                state = .resting(until: Date().addingTimeInterval(.random(in: 1...4)))
+                panel.spriteView.play("idle")
+                onArrived()
+                return
+            }
+            x += stepX
             panel.spriteView.facingLeft = remaining < 0
             panel.setFrameOrigin(NSPoint(x: x.rounded(), y: panel.frame.minY))
         }

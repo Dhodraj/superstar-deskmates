@@ -42,6 +42,8 @@ final class SpriteSheet {
     let bitmap: NSBitmapImageRep
     let frames: [Frame]
     let cellSize: NSSize
+    /// Tag names in sheet order.
+    let animations: [String]
     private let tags: [String: ClosedRange<Int>]
 
     init(directory: URL) throws {
@@ -70,6 +72,13 @@ final class SpriteSheet {
             export.meta.frameTags.map { ($0.name, $0.from...$0.to) },
             uniquingKeysWith: { first, _ in first }
         )
+        animations = export.meta.frameTags.map(\.name)
+    }
+
+    /// The character's own pose: whatever it has beyond standing and walking.
+    /// Vijay waves, Ajit raises the helmet, Rajni flips a coin.
+    var signature: String? {
+        animations.first { $0 != "idle" && $0 != "walk" }
     }
 
     /// Frame range for a tag. A missing tag falls back to `idle`, then to the

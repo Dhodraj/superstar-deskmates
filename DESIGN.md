@@ -131,6 +131,13 @@ bodies with opposite proportions, so it needs two more actors.
 Three on screen at once, as a start. Right-click to swap. Hidden characters stop
 their timers rather than hide a view.
 
+Click a character and it does its signature pose once, then stands again. That
+is the whole interaction until the jobs land, and it is also the proof that a
+tag plays on demand.
+
+Characters keep 8 points between them. One that walks into another stops and
+rests rather than standing on top of it.
+
 One flag on the names. These are living people, and a public repo is a different
 thing from a private toy. If it ever becomes a problem, the characters keep their
 art and lose their names, and Tamil job words take over.
@@ -196,7 +203,8 @@ python3 scripts/import_reference.py Art/reference Sources/Deskmates/Resources/sp
    fail: a transparent non-activating panel, click-through on transparent
    pixels, and animation that does not burn CPU.
 2. Stage. Done. Sheet format with hot reload, `Wanderer`, three panels, menu
-   bar item, settings that persist, sleep that stops timers.
+   bar item, settings that persist, sleep that stops timers. Characters keep
+   clear of each other, save where they stand, and answer a click.
 3. Jobs. Vijay first, because the timer reads nothing. Then Ajit, which is one
    shell call. Then Rajni, which parses the usage files.
 

@@ -17,11 +17,35 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         MenuTarget.shared.stage = stage
         stage.begin()
         statusItem = StatusItem(stage: stage)
+        watchSignals()
     }
 
     func applicationWillTerminate(_ notification: Notification) {
         stage.end()
     }
+
+    /// Held so the sources stay alive for the life of the app.
+    private var signals: [DispatchSourceSignal] = []
+
+    func watchSignals() {
+        signals = [SIGTERM, SIGINT].map { number in
+            saveOnSignal(number) { [weak self] in self?.stage.end() }
+        }
+    }
+}
+
+/// macOS does not route SIGTERM through `applicationWillTerminate`, so a
+/// character's position was lost whenever the app was stopped from a terminal
+/// rather than from its own menu.
+private func saveOnSignal(_ number: Int32, _ save: @escaping () -> Void) -> DispatchSourceSignal {
+    signal(number, SIG_IGN)
+    let source = DispatchSource.makeSignalSource(signal: number, queue: .main)
+    source.setEventHandler {
+        save()
+        exit(0)
+    }
+    source.resume()
+    return source
 }
 
 let app = NSApplication.shared

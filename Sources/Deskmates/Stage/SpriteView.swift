@@ -10,6 +10,9 @@ final class SpriteView: NSView {
     private var index: Int
     private var timer: Timer?
     private var dragOrigin: (mouse: NSPoint, window: NSPoint)?
+    private var dragged = false
+    /// Set while a one-shot pose is playing. Holds the tag to go back to.
+    private var revertTo: String?
 
     /// Set while walking left, so the sprite faces the way it is going.
     var facingLeft = false {
@@ -20,6 +23,8 @@ final class SpriteView: NSView {
     var contextMenu: (() -> NSMenu)?
     var onDragBegan: (() -> Void)?
     var onDragEnded: (() -> Void)?
+    /// Pressed and released without moving. A drag is not a tap.
+    var onTapped: (() -> Void)?
 
     init(sheet: SpriteSheet, scale: CGFloat) {
         self.sheet = sheet
@@ -38,7 +43,23 @@ final class SpriteView: NSView {
     // MARK: animation
 
     func play(_ wanted: String) {
+        guard revertTo == nil || animation.isEmpty else {
+            // A one-shot is running. Let it finish, and land on this instead.
+            revertTo = wanted
+            return
+        }
         guard wanted != animation else { return }
+        animation = wanted
+        range = sheet.range(for: wanted)
+        index = range.lowerBound
+        needsDisplay = true
+        scheduleNextFrame()
+    }
+
+    /// Plays a pose through once, then goes back to what was playing.
+    func playOnce(_ wanted: String) {
+        guard revertTo == nil, wanted != animation else { return }
+        revertTo = animation
         animation = wanted
         range = sheet.range(for: wanted)
         index = range.lowerBound
@@ -73,7 +94,17 @@ final class SpriteView: NSView {
             repeats: false
         ) { [weak self] _ in
             guard let self else { return }
-            self.index = self.index >= self.range.upperBound ? self.range.lowerBound : self.index + 1
+            if self.index >= self.range.upperBound {
+                if let previous = self.revertTo {
+                    self.revertTo = nil
+                    self.animation = ""
+                    self.play(previous)
+                    return
+                }
+                self.index = self.range.lowerBound
+            } else {
+                self.index += 1
+            }
             self.needsDisplay = true
             self.scheduleNextFrame()
         }
@@ -128,23 +159,33 @@ final class SpriteView: NSView {
     override func mouseDown(with event: NSEvent) {
         guard let window else { return }
         dragOrigin = (NSEvent.mouseLocation, window.frame.origin)
+        dragged = false
         onDragBegan?()
     }
 
     override func mouseDragged(with event: NSEvent) {
         guard let window, let origin = dragOrigin else { return }
         let now = NSEvent.mouseLocation
+        // A couple of pixels of wobble while clicking is not a drag.
+        if abs(now.x - origin.mouse.x) > 3 || abs(now.y - origin.mouse.y) > 3 {
+            dragged = true
+        }
         window.setFrameOrigin(NSPoint(
             x: origin.window.x + now.x - origin.mouse.x,
             y: origin.window.y + now.y - origin.mouse.y
         ))
-        play("walk")
+        if dragged {
+            play("walk")
+        }
     }
 
     override func mouseUp(with event: NSEvent) {
         dragOrigin = nil
         play("idle")
         onDragEnded?()
+        if !dragged {
+            onTapped?()
+        }
     }
 
     override func rightMouseDown(with event: NSEvent) {

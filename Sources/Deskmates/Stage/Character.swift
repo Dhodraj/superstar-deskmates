@@ -9,14 +9,20 @@ final class Character {
 
     private let directory: URL
     private let scale: CGFloat
+    private var sheet: SpriteSheet
     private var wanderer: Wanderer?
     private var watcher: SheetWatcher?
+
+    /// Where the other characters are standing. Set by the stage.
+    var neighbours: () -> [NSRect] = { [] }
+    /// Called when the character settles somewhere new.
+    var onSettled: () -> Void = {}
 
     init(name: String, directory: URL, scale: CGFloat) throws {
         self.name = name
         self.directory = directory
         self.scale = scale
-        let sheet = try SpriteSheet(directory: directory)
+        sheet = try SpriteSheet(directory: directory)
         view = SpriteView(sheet: sheet, scale: scale)
         panel = CharacterPanel(spriteView: view)
     }
@@ -31,9 +37,19 @@ final class Character {
         panel.orderFrontRegardless()
 
         let wanderer = Wanderer(panel: panel)
+        wanderer.neighbours = { [weak self] in self?.neighbours() ?? [] }
+        wanderer.onArrived = { [weak self] in self?.onSettled() }
         self.wanderer = wanderer
         view.onDragBegan = { wanderer.pause() }
-        view.onDragEnded = { wanderer.resume() }
+        view.onDragEnded = { [weak self] in
+            wanderer.resume()
+            self?.onSettled()
+        }
+        // Click a character and it does its own thing once, then stands again.
+        view.onTapped = { [weak self] in
+            guard let signature = self?.sheet.signature else { return }
+            self?.view.playOnce(signature)
+        }
 
         watcher = SheetWatcher(directory: directory) { [weak self] in self?.reloadArt() }
 
@@ -56,7 +72,8 @@ final class Character {
     }
 
     private func reloadArt() {
-        guard let sheet = try? SpriteSheet(directory: directory) else { return }
-        view.replace(sheet: sheet)
+        guard let fresh = try? SpriteSheet(directory: directory) else { return }
+        sheet = fresh
+        view.replace(sheet: fresh)
     }
 }

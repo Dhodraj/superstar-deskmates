@@ -101,6 +101,13 @@ final class Stage {
             return
         }
         character.view.contextMenu = { [weak self] in self?.menu() ?? NSMenu() }
+        character.neighbours = { [weak self, weak character] in
+            guard let self, let character else { return [] }
+            return self.awake.values
+                .filter { $0 !== character }
+                .map(\.panel.frame)
+        }
+        character.onSettled = { [weak self] in self?.save() }
         let saved = settings.positions[name].map { NSPoint(x: $0.x, y: $0.y) }
         character.wake(at: saved, slot: awake.count)
         pointer.watch(character.panel)
