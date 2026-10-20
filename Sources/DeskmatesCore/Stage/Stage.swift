@@ -12,9 +12,10 @@ final class Stage {
     /// Every character with art on disk, in a stable order.
     let available: [String]
 
-    // Art is drawn at 192 pixels tall and shown at half that in points, so one
-    // art pixel lands on one physical pixel of a Retina display.
-    init(scale: CGFloat = 0.5) {
+    /// Art is drawn at 192 pixels tall. At scale 1 each art pixel covers a
+    /// 2x2 block of physical pixels on a Retina display, which keeps the edges
+    /// square. Half steps blur them, so prefer 0.5 or 1.
+    init(scale: CGFloat = Stage.preferredScale()) {
         self.scale = scale
         spritesRoot = Self.locateSprites()
         available = (try? FileManager.default.contentsOfDirectory(
@@ -151,6 +152,16 @@ final class Stage {
         case "ajit": return CIStatus(repository: watchedRepository())
         default: return nil
         }
+    }
+
+    /// How large the characters are. `DESKMATES_SCALE` overrides it.
+    static func preferredScale() -> CGFloat {
+        guard let text = ProcessInfo.processInfo.environment["DESKMATES_SCALE"],
+              let value = Double(text), value > 0
+        else {
+            return 1
+        }
+        return CGFloat(value)
     }
 
     /// Which repository Ajit watches. `DESKMATES_REPO`, or wherever the app was

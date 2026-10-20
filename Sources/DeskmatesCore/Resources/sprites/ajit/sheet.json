@@ -20,7 +20,7 @@
     "w": 103,
     "h": 194
    },
-   "duration": 400
+   "duration": 500
   },
   {
    "filename": "ajit 1.aseprite",
@@ -42,7 +42,7 @@
     "w": 103,
     "h": 194
    },
-   "duration": 150
+   "duration": 260
   },
   {
    "filename": "ajit 2.aseprite",
@@ -64,7 +64,7 @@
     "w": 103,
     "h": 194
    },
-   "duration": 150
+   "duration": 260
   },
   {
    "filename": "ajit 3.aseprite",
@@ -86,7 +86,7 @@
     "w": 103,
     "h": 194
    },
-   "duration": 260
+   "duration": 300
   },
   {
    "filename": "ajit 4.aseprite",
@@ -108,7 +108,7 @@
     "w": 103,
     "h": 194
    },
-   "duration": 300
+   "duration": 400
   },
   {
    "filename": "ajit 5.aseprite",
@@ -130,7 +130,7 @@
     "w": 103,
     "h": 194
    },
-   "duration": 220
+   "duration": 260
   }
  ],
  "meta": {

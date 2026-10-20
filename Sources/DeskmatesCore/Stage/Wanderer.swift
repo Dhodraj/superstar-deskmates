@@ -27,8 +27,17 @@ final class Wanderer {
     /// window each tick threw the step away and nothing ever moved.
     private var x: CGFloat = 0
 
-    /// Points per second. Slow enough to read as a stroll at this sprite size.
-    private let speed: CGFloat = 26
+    /// Points per second. A character crossing the screen is background, not
+    /// something to watch, so this is slower than it first looks right.
+    /// `DESKMATES_SPEED` overrides it.
+    private let speed: CGFloat = {
+        guard let text = ProcessInfo.processInfo.environment["DESKMATES_SPEED"],
+              let value = Double(text), value > 0
+        else {
+            return 11
+        }
+        return CGFloat(value)
+    }()
     /// Gap kept between characters.
     private let clearance: CGFloat = 8
     private let tick: TimeInterval = 1.0 / 30
@@ -90,7 +99,7 @@ final class Wanderer {
             if abs(remaining) <= speed * tick {
                 x = targetX
                 panel.setFrameOrigin(NSPoint(x: x.rounded(), y: panel.frame.minY))
-                state = .resting(until: Date().addingTimeInterval(.random(in: 3...12)))
+                state = .resting(until: Date().addingTimeInterval(.random(in: 8...40)))
                 panel.spriteView.play("idle")
                 onArrived()
                 return

@@ -166,8 +166,8 @@ three cover every input shape the app will ever have.
 Generated for this project with an image model, one reference per pose, then
 imported. Nobody draws pixels by hand unless they want to.
 
-- Size: 192 pixels tall, shown at 96 points. On a Retina display that puts one
-  art pixel on one physical pixel.
+- Size: 192 pixels tall, shown at 192 points. On a Retina display that puts
+  one art pixel on a 2x2 block of physical pixels.
 - Poses per character: `idle`, two walk frames, and one signature pose. Vijay
   waves, Ajit puts the helmet on, Rajni flips a coin.
 - Import: `python3 scripts/import_reference.py Art/reference
@@ -208,6 +208,12 @@ Two environment variables:
 - `DESKMATES_SPRITES` points at a sprites directory. Set it to
   `Sources/Deskmates/Resources/sprites` while drawing, because hot reload
   cannot watch the copy inside the built bundle.
+- `DESKMATES_SCALE` sets how large the characters are. The default is 1, which
+  puts each art pixel on a 2x2 block of physical pixels on a Retina display and
+  keeps the edges square. Half steps such as 0.75 make some pixels bigger than
+  others, so prefer 0.5 or 1.
+- `DESKMATES_SPEED` sets the walking speed in points per second. The default
+  is 11.
 - `DESKMATES_REPO` is the repository Ajit watches. Without it he watches the
   directory the app was started from.
 - `DESKMATES_DEBUG` prints every character's position once a second. The app

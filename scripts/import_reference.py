@@ -40,7 +40,7 @@ PAD = 1                    # transparent margin, so the figure never touches the
 
 # Frame order and duration per tag, in milliseconds.
 TAG_ORDER = ["idle", "walk", "happy", "busy", "alert", "sleep"]
-DURATION_MS = {"idle": 400, "walk": 150, "happy": 260, "busy": 300, "alert": 220, "sleep": 600}
+DURATION_MS = {"idle": 500, "walk": 260, "happy": 300, "busy": 400, "alert": 260, "sleep": 700}
 
 
 def near(a, b, tolerance):
