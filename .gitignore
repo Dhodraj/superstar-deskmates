@@ -3,3 +3,6 @@
 
 # SwiftPM build products
 /.build/
+
+# Python bytecode
+__pycache__/
