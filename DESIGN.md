@@ -56,9 +56,9 @@ Aseprite's own export. One `.aseprite` source file per character, one tag per
 mood, exported with:
 
 ```
-aseprite -b Art/ajith.aseprite \
-  --sheet Resources/sprites/ajith/sheet.png \
-  --data  Resources/sprites/ajith/sheet.json \
+aseprite -b Art/ajit.aseprite \
+  --sheet Resources/sprites/ajit/sheet.png \
+  --data  Resources/sprites/ajit/sheet.json \
   --format json-array --list-tags
 ```
 
@@ -104,8 +104,8 @@ to the job their screen persona already does. Three ship in v1.
 | Character | Job | Why this job | Silhouette |
 |---|---|---|---|
 | Vijay (v1) | Focus timer | "Thalapathy" means commander, and the persona is the elder brother who keeps you on track. Dance numbers are the reward on `happy`. | Clean side part, no facial hair, bright shirt. The plainest face of the five, which is what makes him readable next to the others. |
-| Ajith (v1) | Last CI run | He races in real Formula and endurance events, so the chequered flag is already his. Green flag and red flag are the two states CI has. | Salt and pepper hair, dithered in two tones, with a beard block. IMDb lists the look as a trademark. A helmet variant covers `busy`. |
-| Rajini (v1) | AI token spend | The coin toss in *Sivaji: The Boss* is a money gesture, and critics read his sunglasses as the signal that a character is wealthy. He flips a coin per thousand tokens, and stops flipping at `alert`. | Sunglasses, which is a two-pixel dark bar and the strongest identifier available, over swept-back hair. |
+| Ajit (v1) | Last CI run | He races in real Formula and endurance events, so the chequered flag is already his. Green flag and red flag are the two states CI has. | Salt and pepper hair, dithered in two tones, with a beard block. IMDb lists the look as a trademark. A helmet variant covers `busy`. |
+| Rajni (v1) | AI token spend | The coin toss in *Sivaji: The Boss* is a money gesture, and critics read his sunglasses as the signal that a character is wealthy. He flips a coin per thousand tokens, and stops flipping at `alert`. | Sunglasses, which is a two-pixel dark bar and the strongest identifier available, over swept-back hair. |
 | Dhanush | Uncommitted work piling up | The persona is the underdog facing forces bigger than him, carried by a lithe frame and fierce delivery. That is the job with the widest mood range. | A narrow body. Proportion is the only full-body cue that works at this size, and it separates him from the other four at a glance. |
 | STR | Today's news | The register is charm and satire, which is what a paper read aloud needs. He also changes his look between films, and this job hides most of the face. | Long hair as a block, hands, and a held-up paper. Least face of the five. |
 
@@ -123,7 +123,7 @@ art and lose their names, and Tamil job words take over.
 ### Why these three first
 
 Vijay reads no data at all, so the timer proves the stage with no I/O in the way.
-Ajith is the cheapest character to draw and his job is one shell call. Rajini is
+Ajit is the cheapest character to draw and his job is one shell call. Rajni is
 the job you actually want, and it is the one that parses files. Between them the
 three cover every input shape the app will ever have.
 
@@ -240,8 +240,8 @@ python3 scripts/make_placeholder_sheet.py Sources/Deskmates/Resources/sprites
    pixels, and animation that does not burn CPU.
 2. Stage. Done. Sheet format with hot reload, `Wanderer`, three panels, menu
    bar item, settings that persist, sleep that stops timers.
-3. Jobs. Vijay first, because the timer reads nothing. Then Ajith, which is one
-   shell call. Then Rajini, which parses the usage files.
+3. Jobs. Vijay first, because the timer reads nothing. Then Ajit, which is one
+   shell call. Then Rajni, which parses the usage files.
 
 Two parts will take a day each whatever the plan: per-pixel hit-testing, and
 behaviour across several monitors and fullscreen Spaces.

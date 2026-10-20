@@ -47,7 +47,7 @@ CHARACTERS = {
         "shirt": (64, 120, 200, 255),
         "rows": {},
     },
-    "ajith": {
+    "ajit": {
         "shirt": (150, 54, 60, 255),
         "rows": {
             1: ".....HGHGHG.....",
@@ -56,7 +56,7 @@ CHARACTERS = {
             7: ".....KKKKKK.....",
         },
     },
-    "rajini": {
+    "rajni": {
         "shirt": (226, 224, 214, 255),
         "rows": {
             5: "....KKKKKKKK....",

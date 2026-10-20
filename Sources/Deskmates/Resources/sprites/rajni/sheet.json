@@ -1,7 +1,7 @@
 {
  "frames": [
   {
-   "filename": "ajith 0.aseprite",
+   "filename": "rajni 0.aseprite",
    "frame": {
     "x": 0,
     "y": 0,
@@ -23,7 +23,7 @@
    "duration": 400
   },
   {
-   "filename": "ajith 1.aseprite",
+   "filename": "rajni 1.aseprite",
    "frame": {
     "x": 32,
     "y": 0,
@@ -45,7 +45,7 @@
    "duration": 400
   },
   {
-   "filename": "ajith 2.aseprite",
+   "filename": "rajni 2.aseprite",
    "frame": {
     "x": 64,
     "y": 0,
@@ -67,7 +67,7 @@
    "duration": 120
   },
   {
-   "filename": "ajith 3.aseprite",
+   "filename": "rajni 3.aseprite",
    "frame": {
     "x": 96,
     "y": 0,
@@ -89,7 +89,7 @@
    "duration": 120
   },
   {
-   "filename": "ajith 4.aseprite",
+   "filename": "rajni 4.aseprite",
    "frame": {
     "x": 128,
     "y": 0,
@@ -111,7 +111,7 @@
    "duration": 120
   },
   {
-   "filename": "ajith 5.aseprite",
+   "filename": "rajni 5.aseprite",
    "frame": {
     "x": 160,
     "y": 0,
