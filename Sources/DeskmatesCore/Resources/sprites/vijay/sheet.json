@@ -5,108 +5,218 @@
    "frame": {
     "x": 0,
     "y": 0,
-    "w": 59,
-    "h": 194
+    "w": 79,
+    "h": 188
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 59,
-    "h": 194
+    "w": 79,
+    "h": 188
    },
    "sourceSize": {
-    "w": 59,
-    "h": 194
+    "w": 79,
+    "h": 188
    },
    "duration": 500
   },
   {
    "filename": "vijay 1.aseprite",
    "frame": {
-    "x": 59,
+    "x": 79,
     "y": 0,
-    "w": 59,
-    "h": 194
+    "w": 79,
+    "h": 188
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 59,
-    "h": 194
+    "w": 79,
+    "h": 188
    },
    "sourceSize": {
-    "w": 59,
-    "h": 194
+    "w": 79,
+    "h": 188
    },
-   "duration": 260
+   "duration": 500
   },
   {
    "filename": "vijay 2.aseprite",
    "frame": {
-    "x": 118,
+    "x": 158,
     "y": 0,
-    "w": 59,
-    "h": 194
+    "w": 79,
+    "h": 188
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 59,
-    "h": 194
+    "w": 79,
+    "h": 188
    },
    "sourceSize": {
-    "w": 59,
-    "h": 194
+    "w": 79,
+    "h": 188
    },
    "duration": 260
   },
   {
    "filename": "vijay 3.aseprite",
    "frame": {
-    "x": 177,
+    "x": 237,
     "y": 0,
-    "w": 59,
-    "h": 194
+    "w": 79,
+    "h": 188
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 59,
-    "h": 194
+    "w": 79,
+    "h": 188
    },
    "sourceSize": {
-    "w": 59,
-    "h": 194
+    "w": 79,
+    "h": 188
    },
-   "duration": 300
+   "duration": 260
   },
   {
    "filename": "vijay 4.aseprite",
    "frame": {
-    "x": 236,
+    "x": 316,
     "y": 0,
-    "w": 59,
-    "h": 194
+    "w": 79,
+    "h": 188
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 59,
-    "h": 194
+    "w": 79,
+    "h": 188
    },
    "sourceSize": {
-    "w": 59,
-    "h": 194
+    "w": 79,
+    "h": 188
+   },
+   "duration": 260
+  },
+  {
+   "filename": "vijay 5.aseprite",
+   "frame": {
+    "x": 395,
+    "y": 0,
+    "w": 79,
+    "h": 188
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 79,
+    "h": 188
+   },
+   "sourceSize": {
+    "w": 79,
+    "h": 188
+   },
+   "duration": 260
+  },
+  {
+   "filename": "vijay 6.aseprite",
+   "frame": {
+    "x": 474,
+    "y": 0,
+    "w": 79,
+    "h": 188
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 79,
+    "h": 188
+   },
+   "sourceSize": {
+    "w": 79,
+    "h": 188
+   },
+   "duration": 300
+  },
+  {
+   "filename": "vijay 7.aseprite",
+   "frame": {
+    "x": 553,
+    "y": 0,
+    "w": 79,
+    "h": 188
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 79,
+    "h": 188
+   },
+   "sourceSize": {
+    "w": 79,
+    "h": 188
+   },
+   "duration": 300
+  },
+  {
+   "filename": "vijay 8.aseprite",
+   "frame": {
+    "x": 632,
+    "y": 0,
+    "w": 79,
+    "h": 188
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 79,
+    "h": 188
+   },
+   "sourceSize": {
+    "w": 79,
+    "h": 188
+   },
+   "duration": 400
+  },
+  {
+   "filename": "vijay 9.aseprite",
+   "frame": {
+    "x": 711,
+    "y": 0,
+    "w": 79,
+    "h": 188
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 79,
+    "h": 188
+   },
+   "sourceSize": {
+    "w": 79,
+    "h": 188
    },
    "duration": 400
   }
@@ -115,36 +225,36 @@
   "app": "scripts/import_reference.py",
   "format": "RGBA8888",
   "size": {
-   "w": 295,
-   "h": 194
+   "w": 790,
+   "h": 188
   },
   "scale": "1",
   "frameTags": [
    {
     "name": "idle",
     "from": 0,
-    "to": 0,
+    "to": 1,
     "direction": "forward",
     "color": "#000000ff"
    },
    {
     "name": "walk",
-    "from": 1,
-    "to": 2,
+    "from": 2,
+    "to": 5,
     "direction": "forward",
     "color": "#000000ff"
    },
    {
     "name": "happy",
-    "from": 3,
-    "to": 3,
+    "from": 6,
+    "to": 7,
     "direction": "forward",
     "color": "#000000ff"
    },
    {
     "name": "busy",
-    "from": 4,
-    "to": 4,
+    "from": 8,
+    "to": 9,
     "direction": "forward",
     "color": "#000000ff"
    }

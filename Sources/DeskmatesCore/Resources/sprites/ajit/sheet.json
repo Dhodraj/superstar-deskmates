@@ -5,130 +5,262 @@
    "frame": {
     "x": 0,
     "y": 0,
-    "w": 103,
-    "h": 194
+    "w": 81,
+    "h": 182
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 103,
-    "h": 194
+    "w": 81,
+    "h": 182
    },
    "sourceSize": {
-    "w": 103,
-    "h": 194
+    "w": 81,
+    "h": 182
    },
    "duration": 500
   },
   {
    "filename": "ajit 1.aseprite",
    "frame": {
-    "x": 103,
+    "x": 81,
     "y": 0,
-    "w": 103,
-    "h": 194
+    "w": 81,
+    "h": 182
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 103,
-    "h": 194
+    "w": 81,
+    "h": 182
    },
    "sourceSize": {
-    "w": 103,
-    "h": 194
+    "w": 81,
+    "h": 182
    },
-   "duration": 260
+   "duration": 500
   },
   {
    "filename": "ajit 2.aseprite",
    "frame": {
-    "x": 206,
+    "x": 162,
     "y": 0,
-    "w": 103,
-    "h": 194
+    "w": 81,
+    "h": 182
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 103,
-    "h": 194
+    "w": 81,
+    "h": 182
    },
    "sourceSize": {
-    "w": 103,
-    "h": 194
+    "w": 81,
+    "h": 182
    },
    "duration": 260
   },
   {
    "filename": "ajit 3.aseprite",
    "frame": {
-    "x": 309,
+    "x": 243,
     "y": 0,
-    "w": 103,
-    "h": 194
+    "w": 81,
+    "h": 182
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 103,
-    "h": 194
+    "w": 81,
+    "h": 182
    },
    "sourceSize": {
-    "w": 103,
-    "h": 194
+    "w": 81,
+    "h": 182
    },
-   "duration": 300
+   "duration": 260
   },
   {
    "filename": "ajit 4.aseprite",
    "frame": {
-    "x": 412,
+    "x": 324,
     "y": 0,
-    "w": 103,
-    "h": 194
+    "w": 81,
+    "h": 182
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 103,
-    "h": 194
+    "w": 81,
+    "h": 182
    },
    "sourceSize": {
-    "w": 103,
-    "h": 194
+    "w": 81,
+    "h": 182
    },
-   "duration": 400
+   "duration": 260
   },
   {
    "filename": "ajit 5.aseprite",
    "frame": {
-    "x": 515,
+    "x": 405,
     "y": 0,
-    "w": 103,
-    "h": 194
+    "w": 81,
+    "h": 182
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 103,
-    "h": 194
+    "w": 81,
+    "h": 182
    },
    "sourceSize": {
-    "w": 103,
-    "h": 194
+    "w": 81,
+    "h": 182
+   },
+   "duration": 260
+  },
+  {
+   "filename": "ajit 6.aseprite",
+   "frame": {
+    "x": 486,
+    "y": 0,
+    "w": 81,
+    "h": 182
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 81,
+    "h": 182
+   },
+   "sourceSize": {
+    "w": 81,
+    "h": 182
+   },
+   "duration": 300
+  },
+  {
+   "filename": "ajit 7.aseprite",
+   "frame": {
+    "x": 567,
+    "y": 0,
+    "w": 81,
+    "h": 182
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 81,
+    "h": 182
+   },
+   "sourceSize": {
+    "w": 81,
+    "h": 182
+   },
+   "duration": 300
+  },
+  {
+   "filename": "ajit 8.aseprite",
+   "frame": {
+    "x": 648,
+    "y": 0,
+    "w": 81,
+    "h": 182
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 81,
+    "h": 182
+   },
+   "sourceSize": {
+    "w": 81,
+    "h": 182
+   },
+   "duration": 400
+  },
+  {
+   "filename": "ajit 9.aseprite",
+   "frame": {
+    "x": 729,
+    "y": 0,
+    "w": 81,
+    "h": 182
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 81,
+    "h": 182
+   },
+   "sourceSize": {
+    "w": 81,
+    "h": 182
+   },
+   "duration": 400
+  },
+  {
+   "filename": "ajit 10.aseprite",
+   "frame": {
+    "x": 810,
+    "y": 0,
+    "w": 81,
+    "h": 182
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 81,
+    "h": 182
+   },
+   "sourceSize": {
+    "w": 81,
+    "h": 182
+   },
+   "duration": 260
+  },
+  {
+   "filename": "ajit 11.aseprite",
+   "frame": {
+    "x": 891,
+    "y": 0,
+    "w": 81,
+    "h": 182
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 81,
+    "h": 182
+   },
+   "sourceSize": {
+    "w": 81,
+    "h": 182
    },
    "duration": 260
   }
@@ -137,43 +269,43 @@
   "app": "scripts/import_reference.py",
   "format": "RGBA8888",
   "size": {
-   "w": 618,
-   "h": 194
+   "w": 972,
+   "h": 182
   },
   "scale": "1",
   "frameTags": [
    {
     "name": "idle",
     "from": 0,
-    "to": 0,
+    "to": 1,
     "direction": "forward",
     "color": "#000000ff"
    },
    {
     "name": "walk",
-    "from": 1,
-    "to": 2,
+    "from": 2,
+    "to": 5,
     "direction": "forward",
     "color": "#000000ff"
    },
    {
     "name": "happy",
-    "from": 3,
-    "to": 3,
+    "from": 6,
+    "to": 7,
     "direction": "forward",
     "color": "#000000ff"
    },
    {
     "name": "busy",
-    "from": 4,
-    "to": 4,
+    "from": 8,
+    "to": 9,
     "direction": "forward",
     "color": "#000000ff"
    },
    {
     "name": "alert",
-    "from": 5,
-    "to": 5,
+    "from": 10,
+    "to": 11,
     "direction": "forward",
     "color": "#000000ff"
    }

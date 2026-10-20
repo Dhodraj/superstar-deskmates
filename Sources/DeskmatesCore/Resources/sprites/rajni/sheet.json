@@ -5,108 +5,218 @@
    "frame": {
     "x": 0,
     "y": 0,
-    "w": 73,
-    "h": 194
+    "w": 80,
+    "h": 171
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 73,
-    "h": 194
+    "w": 80,
+    "h": 171
    },
    "sourceSize": {
-    "w": 73,
-    "h": 194
+    "w": 80,
+    "h": 171
    },
    "duration": 500
   },
   {
    "filename": "rajni 1.aseprite",
    "frame": {
-    "x": 73,
+    "x": 80,
     "y": 0,
-    "w": 73,
-    "h": 194
+    "w": 80,
+    "h": 171
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 73,
-    "h": 194
+    "w": 80,
+    "h": 171
    },
    "sourceSize": {
-    "w": 73,
-    "h": 194
+    "w": 80,
+    "h": 171
    },
-   "duration": 260
+   "duration": 500
   },
   {
    "filename": "rajni 2.aseprite",
    "frame": {
-    "x": 146,
+    "x": 160,
     "y": 0,
-    "w": 73,
-    "h": 194
+    "w": 80,
+    "h": 171
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 73,
-    "h": 194
+    "w": 80,
+    "h": 171
    },
    "sourceSize": {
-    "w": 73,
-    "h": 194
+    "w": 80,
+    "h": 171
    },
    "duration": 260
   },
   {
    "filename": "rajni 3.aseprite",
    "frame": {
-    "x": 219,
+    "x": 240,
     "y": 0,
-    "w": 73,
-    "h": 194
+    "w": 80,
+    "h": 171
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 73,
-    "h": 194
+    "w": 80,
+    "h": 171
    },
    "sourceSize": {
-    "w": 73,
-    "h": 194
+    "w": 80,
+    "h": 171
    },
-   "duration": 400
+   "duration": 260
   },
   {
    "filename": "rajni 4.aseprite",
    "frame": {
-    "x": 292,
+    "x": 320,
     "y": 0,
-    "w": 73,
-    "h": 194
+    "w": 80,
+    "h": 171
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 73,
-    "h": 194
+    "w": 80,
+    "h": 171
    },
    "sourceSize": {
-    "w": 73,
-    "h": 194
+    "w": 80,
+    "h": 171
+   },
+   "duration": 260
+  },
+  {
+   "filename": "rajni 5.aseprite",
+   "frame": {
+    "x": 400,
+    "y": 0,
+    "w": 80,
+    "h": 171
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 80,
+    "h": 171
+   },
+   "sourceSize": {
+    "w": 80,
+    "h": 171
+   },
+   "duration": 260
+  },
+  {
+   "filename": "rajni 6.aseprite",
+   "frame": {
+    "x": 480,
+    "y": 0,
+    "w": 80,
+    "h": 171
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 80,
+    "h": 171
+   },
+   "sourceSize": {
+    "w": 80,
+    "h": 171
+   },
+   "duration": 400
+  },
+  {
+   "filename": "rajni 7.aseprite",
+   "frame": {
+    "x": 560,
+    "y": 0,
+    "w": 80,
+    "h": 171
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 80,
+    "h": 171
+   },
+   "sourceSize": {
+    "w": 80,
+    "h": 171
+   },
+   "duration": 400
+  },
+  {
+   "filename": "rajni 8.aseprite",
+   "frame": {
+    "x": 640,
+    "y": 0,
+    "w": 80,
+    "h": 171
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 80,
+    "h": 171
+   },
+   "sourceSize": {
+    "w": 80,
+    "h": 171
+   },
+   "duration": 260
+  },
+  {
+   "filename": "rajni 9.aseprite",
+   "frame": {
+    "x": 720,
+    "y": 0,
+    "w": 80,
+    "h": 171
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 80,
+    "h": 171
+   },
+   "sourceSize": {
+    "w": 80,
+    "h": 171
    },
    "duration": 260
   }
@@ -115,36 +225,36 @@
   "app": "scripts/import_reference.py",
   "format": "RGBA8888",
   "size": {
-   "w": 365,
-   "h": 194
+   "w": 800,
+   "h": 171
   },
   "scale": "1",
   "frameTags": [
    {
     "name": "idle",
     "from": 0,
-    "to": 0,
+    "to": 1,
     "direction": "forward",
     "color": "#000000ff"
    },
    {
     "name": "walk",
-    "from": 1,
-    "to": 2,
+    "from": 2,
+    "to": 5,
     "direction": "forward",
     "color": "#000000ff"
    },
    {
     "name": "busy",
-    "from": 3,
-    "to": 3,
+    "from": 6,
+    "to": 7,
     "direction": "forward",
     "color": "#000000ff"
    },
    {
     "name": "alert",
-    "from": 4,
-    "to": 4,
+    "from": 8,
+    "to": 9,
     "direction": "forward",
     "color": "#000000ff"
    }
