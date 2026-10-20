@@ -1,8 +1,11 @@
 # Reference prompts
 
-Two strips per character. The first replaces the strip already in the folder,
-because its two walking figures stand the same way. The second adds the moods
-the jobs need.
+One strip per character, holding every pose.
+
+Two strips did not work. Poses generated in a second image come back at a
+different camera distance, so the character changes size between frames. The
+prompt asked for the same distance, and the model had nothing to measure
+against. Poses drawn together share a camera because they share an image.
 
 Attach that character's single image to every prompt, so the face and clothes
 carry across the poses:
@@ -83,15 +86,16 @@ Every prompt below ends with this block. It is the same for all of them:
 > on the floor. Nothing else in the scene. A dark outline around each figure.
 > Front view.
 
-## Strip 1: standing, walking, signature
+## The strips
 
-This replaces the file already in each folder.
+Delete what is in each folder first, so an old strip is not imported alongside
+the new one.
 
 ### Vijay
 
-Save as `Art/reference/vijay/strip-idle-walk-walk-happy.png`.
+Save as `Art/reference/vijay/strip-idle-walk-walk-happy-busy.png`.
 
-> Pixel art sprite strip of the same man as the attached image. Four full-body
+> Pixel art sprite strip of the same man as the attached image. Five full-body
 > figures in one horizontal row.
 >
 > Figure 1 stands still with his arms down.
@@ -107,7 +111,8 @@ Save as `Art/reference/vijay/strip-idle-walk-walk-happy.png`.
 > figure 3. Before you finish, check the feet: figure 2 has the right foot in
 > the air, figure 3 has the left foot in the air.
 >
-> Figure 4 waves with one arm raised high.
+> Figure 4 waves with one arm raised high. Figure 5 stands still with his arms
+> folded, watching, patient rather than pleased.
 >
 > Keep his face, hair, headband, scarf and clothes exactly as in the attached
 > image. Drop the stage, the railing and the lights. Show only the man, head to
@@ -121,9 +126,9 @@ Save as `Art/reference/vijay/strip-idle-walk-walk-happy.png`.
 
 ### Ajit
 
-Save as `Art/reference/ajit/strip-idle-walk-walk-busy.png`.
+Save as `Art/reference/ajit/strip-idle-walk-walk-busy-alert-happy.png`.
 
-> Pixel art sprite strip of the same man as the attached image. Four full-body
+> Pixel art sprite strip of the same man as the attached image. Six full-body
 > figures in one horizontal row.
 >
 > Figure 1 stands still with his arms down.
@@ -139,7 +144,8 @@ Save as `Art/reference/ajit/strip-idle-walk-walk-busy.png`.
 > figure 3. Before you finish, check the feet: figure 2 has the right foot in
 > the air, figure 3 has the left foot in the air.
 >
-> Figure 4 lifts the racing helmet to put it on.
+> Figure 4 lifts the racing helmet to put it on. Figure 5 has both hands raised
+> in frustration. Figure 6 punches the air with one fist.
 >
 > Keep his face, grey hair and beard, white race suit and red boots exactly as
 > in the attached image.
@@ -152,9 +158,9 @@ Save as `Art/reference/ajit/strip-idle-walk-walk-busy.png`.
 
 ### Rajni
 
-Save as `Art/reference/rajni/strip-idle-walk-walk-alert.png`.
+Save as `Art/reference/rajni/strip-idle-walk-walk-alert-busy.png`.
 
-> Pixel art sprite strip of the same man as the attached image. Four full-body
+> Pixel art sprite strip of the same man as the attached image. Five full-body
 > figures in one horizontal row.
 >
 > Figure 1 stands still with his arms down.
@@ -170,7 +176,8 @@ Save as `Art/reference/rajni/strip-idle-walk-walk-alert.png`.
 > figure 3. Before you finish, check the feet: figure 2 has the right foot in
 > the air, figure 3 has the left foot in the air.
 >
-> Figure 4 flips a coin from one hand, chin lifted.
+> Figure 4 flips a coin from one hand, chin lifted. Figure 5 counts banknotes in
+> both hands, head down.
 >
 > Keep his face, sunglasses, hair and tan suit exactly as in the attached
 > image. The attached image stops at his chest. Show him head to shoes, in the
@@ -182,63 +189,18 @@ Save as `Art/reference/rajni/strip-idle-walk-walk-alert.png`.
 > on the floor. Nothing else in the scene. A dark outline around each figure.
 > Front view.
 
-## Strip 2: the moods the jobs need
+## Why those extra poses
 
 A job reports a mood, and a mood the sheet does not have falls back to
 standing. So a character shows nothing where it should warn you. Ajit is the
-worst case today: his job reports a failed build, and he stands there.
+worst case: his job reports a failed build, and he stands there.
 
-| Character | Has | Needs | Why |
-|---|---|---|---|
-| Vijay | idle, walk, happy | busy | Standing at work while a focus session runs |
-| Ajit | idle, walk, busy | alert, happy | A failed run, and the wave when it goes green |
-| Rajni | idle, walk, alert | busy | Counting while the tokens add up |
-
-Save these beside the first strip.
-
-### Vijay
-
-Save as `Art/reference/vijay/strip-busy.png`.
-
-> Pixel art of the same man as the attached image. One full-body figure,
-> standing still with his arms folded, watching. Patient, not pleased.
->
-> Keep his face, hair, headband, scarf and clothes exactly as in the attached
-> image. Drop the stage, the railing and the lights.
->
-> Plain flat off-white background, no gradient and no shadow on the floor.
-> Nothing else in the scene. A dark outline around the figure. Front view, head
-> to shoes, at the same camera distance as the other images in this set.
-
-### Ajit
-
-Save as `Art/reference/ajit/strip-alert-happy.png`.
-
-> Pixel art sprite strip of the same man as the attached image. Two full-body
-> figures in one horizontal row. Figure 1 has both hands raised in
-> frustration. Figure 2 punches the air with one fist.
->
-> Keep his face, grey hair and beard, white race suit and red boots exactly as
-> in the attached image.
->
-> Same camera distance and the same body height for both figures, with their
-> feet on one baseline. Clear empty space between them, so they do not touch.
-> Plain flat off-white background, no gradient and no shadow on the floor.
-> Nothing else in the scene. A dark outline around each figure. Front view.
-
-### Rajni
-
-Save as `Art/reference/rajni/strip-busy.png`.
-
-> Pixel art of the same man as the attached image. One full-body figure,
-> counting banknotes in both hands, head down.
->
-> Keep his face, sunglasses, hair and tan suit exactly as in the attached
-> image. Show him head to shoes.
->
-> Plain flat off-white background, no gradient and no shadow on the floor.
-> Nothing else in the scene. A dark outline around the figure. Front view, at
-> the same camera distance as the other images in this set.
+| Character | Mood | Pose |
+|---|---|---|
+| Vijay | busy | Arms folded, while a focus session runs |
+| Ajit | alert | Hands raised, when a build fails |
+| Ajit | happy | Fist in the air, when it goes green again |
+| Rajni | busy | Counting notes, while the tokens add up |
 
 ## If a strip comes back wrong
 
@@ -250,6 +212,8 @@ Save as `Art/reference/rajni/strip-busy.png`.
 - One figure taller than the rest: the importer scales the whole strip by its
   tallest figure, so a tall pose shrinks the others. Ask again for one body
   height.
+- One pose much bigger than the others: it came from a different image. The
+  importer prints a warning naming the files. Put every pose in one image.
 - Scenery kept: ask again with the scenery named. Anything touching a figure
   survives the background cut, because the cut floods in from the border and
   stops at the figure's outline.

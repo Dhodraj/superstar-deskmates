@@ -5,7 +5,7 @@
    "frame": {
     "x": 0,
     "y": 0,
-    "w": 89,
+    "w": 103,
     "h": 194
    },
    "rotated": false,
@@ -13,11 +13,11 @@
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 89,
+    "w": 103,
     "h": 194
    },
    "sourceSize": {
-    "w": 89,
+    "w": 103,
     "h": 194
    },
    "duration": 400
@@ -25,9 +25,9 @@
   {
    "filename": "ajit 1.aseprite",
    "frame": {
-    "x": 89,
+    "x": 103,
     "y": 0,
-    "w": 89,
+    "w": 103,
     "h": 194
    },
    "rotated": false,
@@ -35,11 +35,11 @@
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 89,
+    "w": 103,
     "h": 194
    },
    "sourceSize": {
-    "w": 89,
+    "w": 103,
     "h": 194
    },
    "duration": 150
@@ -47,9 +47,9 @@
   {
    "filename": "ajit 2.aseprite",
    "frame": {
-    "x": 178,
+    "x": 206,
     "y": 0,
-    "w": 89,
+    "w": 103,
     "h": 194
    },
    "rotated": false,
@@ -57,11 +57,11 @@
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 89,
+    "w": 103,
     "h": 194
    },
    "sourceSize": {
-    "w": 89,
+    "w": 103,
     "h": 194
    },
    "duration": 150
@@ -69,9 +69,9 @@
   {
    "filename": "ajit 3.aseprite",
    "frame": {
-    "x": 267,
+    "x": 309,
     "y": 0,
-    "w": 89,
+    "w": 103,
     "h": 194
    },
    "rotated": false,
@@ -79,21 +79,65 @@
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 89,
+    "w": 103,
     "h": 194
    },
    "sourceSize": {
-    "w": 89,
+    "w": 103,
+    "h": 194
+   },
+   "duration": 260
+  },
+  {
+   "filename": "ajit 4.aseprite",
+   "frame": {
+    "x": 412,
+    "y": 0,
+    "w": 103,
+    "h": 194
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 103,
+    "h": 194
+   },
+   "sourceSize": {
+    "w": 103,
     "h": 194
    },
    "duration": 300
+  },
+  {
+   "filename": "ajit 5.aseprite",
+   "frame": {
+    "x": 515,
+    "y": 0,
+    "w": 103,
+    "h": 194
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 103,
+    "h": 194
+   },
+   "sourceSize": {
+    "w": 103,
+    "h": 194
+   },
+   "duration": 220
   }
  ],
  "meta": {
   "app": "scripts/import_reference.py",
   "format": "RGBA8888",
   "size": {
-   "w": 356,
+   "w": 618,
    "h": 194
   },
   "scale": "1",
@@ -113,9 +157,23 @@
     "color": "#000000ff"
    },
    {
-    "name": "busy",
+    "name": "happy",
     "from": 3,
     "to": 3,
+    "direction": "forward",
+    "color": "#000000ff"
+   },
+   {
+    "name": "busy",
+    "from": 4,
+    "to": 4,
+    "direction": "forward",
+    "color": "#000000ff"
+   },
+   {
+    "name": "alert",
+    "from": 5,
+    "to": 5,
     "direction": "forward",
     "color": "#000000ff"
    }

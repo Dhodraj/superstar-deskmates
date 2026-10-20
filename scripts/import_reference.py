@@ -139,28 +139,85 @@ def resize(width, height, pixels, new_width, new_height):
     return out
 
 
-def columns(width, height, pixels):
-    """Split a strip into one figure per run of non-empty columns."""
-    filled = [
-        any(pixels[y * width + x][3] > 8 for y in range(height))
-        for x in range(width)
-    ]
-    spans, start = [], None
-    for x, has_content in enumerate(filled):
-        if has_content and start is None:
-            start = x
-        elif not has_content and start is not None:
-            spans.append((start, x - 1))
-            start = None
-    if start is not None:
-        spans.append((start, width - 1))
-    return spans
+def figures(width, height, pixels):
+    """Split a strip into one group of pixels per figure.
+
+    Cutting at empty columns is not enough: a walking figure swings a foot out,
+    and two figures that never touch can still share a column. So label the
+    connected lumps of paint instead, and treat each big one as a figure.
+
+    A small lump is either part of a figure that is drawn detached, such as a
+    coin in the air, or it is a watermark in a corner. Attach the first to the
+    nearest figure, and drop the second, which is the one that touches the edge
+    of the image.
+    """
+    label = [-1] * (width * height)
+    lumps = []
+    for start in range(width * height):
+        if label[start] != -1 or pixels[start][3] <= 8:
+            continue
+        index = len(lumps)
+        queue = deque([start])
+        label[start] = index
+        members, left, right, touches_edge = [], width, -1, False
+        while queue:
+            at = queue.popleft()
+            x, y = at % width, at // width
+            members.append(at)
+            left, right = min(left, x), max(right, x)
+            if x == 0 or y == 0 or x == width - 1 or y == height - 1:
+                touches_edge = True
+            for dx in (-1, 0, 1):
+                for dy in (-1, 0, 1):
+                    nx, ny = x + dx, y + dy
+                    if not (0 <= nx < width and 0 <= ny < height):
+                        continue
+                    near = ny * width + nx
+                    if label[near] == -1 and pixels[near][3] > 8:
+                        label[near] = index
+                        queue.append(near)
+        lumps.append({
+            "members": members,
+            "left": left,
+            "right": right,
+            "edge": touches_edge,
+        })
+
+    if not lumps:
+        return []
+
+    biggest = max(len(lump["members"]) for lump in lumps)
+    big = [lump for lump in lumps if len(lump["members"]) >= biggest * 0.2]
+    small = [lump for lump in lumps if len(lump["members"]) < biggest * 0.2]
+    big.sort(key=lambda lump: lump["left"])
+
+    for lump in small:
+        if lump["edge"]:
+            continue                      # a watermark or a stray speck
+        middle = (lump["left"] + lump["right"]) / 2
+        nearest = min(big, key=lambda f: abs((f["left"] + f["right"]) / 2 - middle))
+        nearest["members"].extend(lump["members"])
+        nearest["left"] = min(nearest["left"], lump["left"])
+        nearest["right"] = max(nearest["right"], lump["right"])
+
+    return big
 
 
-def crop_box(width, pixels, left, right, height):
-    w = right - left + 1
-    cut = [pixels[y * width + left + x] for y in range(height) for x in range(w)]
-    return crop(w, height, cut)
+def cut_out(width, pixels, lump):
+    """Crop one figure, keeping only its own pixels.
+
+    Cropping to a rectangle would bring in the neighbour's foot where the two
+    overlap, so copy the figure's own pixels and nothing else.
+    """
+    top = min(at // width for at in lump["members"])
+    bottom = max(at // width for at in lump["members"])
+    left, right = lump["left"], lump["right"]
+    w, h = right - left + 1, bottom - top + 1
+    out = [(0, 0, 0, 0)] * (w * h)
+    for at in lump["members"]:
+        x, y = at % width, at // width
+        out[(y - top) * w + (x - left)] = pixels[at]
+    return w, h, out
 
 
 def poses_for(directory, name):
@@ -189,20 +246,41 @@ def load(path, work, tags):
     if tags is None:
         return [crop(width, height, pixels)]
 
-    spans = columns(width, height, pixels)
-    assert len(spans) == len(tags), (
-        f"{path.name}: {len(tags)} tags in the name but {len(spans)} figures in the image"
+    found = figures(width, height, pixels)
+    assert len(found) == len(tags), (
+        f"{path.name}: {len(tags)} tags in the name but {len(found)} figures in the image"
     )
-    return [crop_box(width, pixels, left, right, height) for left, right in spans]
+    return [cut_out(width, pixels, lump) for lump in found]
+
+
+def warn_about_mixed_cameras(by_file):
+    """Say when two source files were drawn at different distances.
+
+    Every pose is scaled by the tallest figure across all of them, so a file
+    shot closer makes every other pose small. Separate generations do not share
+    a camera, whatever the prompt asks, so this is worth catching loudly.
+    """
+    if len(by_file) < 2:
+        return
+    middles = {name: sorted(heights)[len(heights) // 2] for name, heights in by_file.items()}
+    tallest, shortest = max(middles.values()), min(middles.values())
+    if tallest <= shortest * 1.15:
+        return
+    print("  WARNING: these files were drawn at different distances.")
+    for name, middle in sorted(middles.items(), key=lambda pair: -pair[1]):
+        print(f"    {name:34} typical figure {middle} tall")
+    print("  Put every pose in one image, or the small ones will stay small.")
 
 
 def build(name, poses, out_dir, work):
-    cut = []
+    cut, by_file = [], {}
     for tag, path, tags in poses:
-        figures = load(path, work, tags)
-        for figure, figure_tag in zip(figures, tags or [tag]):
+        found = load(path, work, tags)
+        for figure, figure_tag in zip(found, tags or [tag]):
             cut.append((figure_tag, figure))
-        print(f"  {path.name:34} {len(figures)} figure(s)")
+        by_file[path.name] = [height for _, height, _ in found]
+        print(f"  {path.name:34} {len(found)} figure(s)")
+    warn_about_mixed_cameras(by_file)
 
     # One scale for every pose. Scaling each figure to the same height on its
     # own would stretch a crouch up to match a stand, and the character would

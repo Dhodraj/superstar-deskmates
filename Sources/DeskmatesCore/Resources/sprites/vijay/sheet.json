@@ -5,7 +5,7 @@
    "frame": {
     "x": 0,
     "y": 0,
-    "w": 91,
+    "w": 59,
     "h": 194
    },
    "rotated": false,
@@ -13,11 +13,11 @@
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 91,
+    "w": 59,
     "h": 194
    },
    "sourceSize": {
-    "w": 91,
+    "w": 59,
     "h": 194
    },
    "duration": 400
@@ -25,9 +25,9 @@
   {
    "filename": "vijay 1.aseprite",
    "frame": {
-    "x": 91,
+    "x": 59,
     "y": 0,
-    "w": 91,
+    "w": 59,
     "h": 194
    },
    "rotated": false,
@@ -35,11 +35,11 @@
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 91,
+    "w": 59,
     "h": 194
    },
    "sourceSize": {
-    "w": 91,
+    "w": 59,
     "h": 194
    },
    "duration": 150
@@ -47,9 +47,9 @@
   {
    "filename": "vijay 2.aseprite",
    "frame": {
-    "x": 182,
+    "x": 118,
     "y": 0,
-    "w": 91,
+    "w": 59,
     "h": 194
    },
    "rotated": false,
@@ -57,11 +57,11 @@
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 91,
+    "w": 59,
     "h": 194
    },
    "sourceSize": {
-    "w": 91,
+    "w": 59,
     "h": 194
    },
    "duration": 150
@@ -69,9 +69,9 @@
   {
    "filename": "vijay 3.aseprite",
    "frame": {
-    "x": 273,
+    "x": 177,
     "y": 0,
-    "w": 91,
+    "w": 59,
     "h": 194
    },
    "rotated": false,
@@ -79,21 +79,43 @@
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 91,
+    "w": 59,
     "h": 194
    },
    "sourceSize": {
-    "w": 91,
+    "w": 59,
     "h": 194
    },
    "duration": 260
+  },
+  {
+   "filename": "vijay 4.aseprite",
+   "frame": {
+    "x": 236,
+    "y": 0,
+    "w": 59,
+    "h": 194
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 59,
+    "h": 194
+   },
+   "sourceSize": {
+    "w": 59,
+    "h": 194
+   },
+   "duration": 300
   }
  ],
  "meta": {
   "app": "scripts/import_reference.py",
   "format": "RGBA8888",
   "size": {
-   "w": 364,
+   "w": 295,
    "h": 194
   },
   "scale": "1",
@@ -116,6 +138,13 @@
     "name": "happy",
     "from": 3,
     "to": 3,
+    "direction": "forward",
+    "color": "#000000ff"
+   },
+   {
+    "name": "busy",
+    "from": 4,
+    "to": 4,
     "direction": "forward",
     "color": "#000000ff"
    }
