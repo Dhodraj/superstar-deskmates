@@ -175,11 +175,21 @@ The menu bar needs its own mark, not the same picture shrunk. It is 16 pixels
 and one colour, so `MenuBarMark` draws the figure and the bubble, and leaves
 out the clock. The clock turns to noise at that size.
 
-Ten marks were drawn and rejected on the way. Three characters on a tile, a
-screen with heads over it, sunglasses, a film slate, a D monogram, a theatre
-curtain, a fan cutout, a hero casting a giant shadow, a moustached cursor, and
-a garlanded battery. The test that killed most of them was the 16 pixel
-one-colour version, not the full size one.
+Ten marks were drawn and rejected on the way:
+
+- three characters standing on a tile
+- a screen with two heads over the top edge
+- sunglasses on their own
+- a film slate
+- a letter D with a stripe
+- theatre curtains around a figure
+- a fan cutout on an easel
+- a small figure casting a giant shadow
+- a cursor wearing a moustache
+- a garlanded battery
+
+The test that killed most of them was the 16 pixel one-colour version, not the
+full size one.
 
 
 The characters are generated with an image model, one reference per pose, then
