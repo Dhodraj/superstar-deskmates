@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Draw the app icon: a film slate with the red and yellow stripe.
+"""Draw the app icon: a flat cutout of a character, propped on a base.
 
     python3 scripts/make_logo.py build/icon.png
 
@@ -20,25 +20,28 @@ PALETTE = {
     "K": INK,
     "W": (244, 242, 235, 255),
     "R": (214, 48, 45, 255),
-    "Y": (243, 186, 54, 255),
+    "S": (232, 180, 140, 255),
+    "H": (46, 38, 54, 255),
 }
 
-# The hinged stick with its teeth, then the slate below it.
+# A cutout on a stand: the flat standee propped outside a theatre, and also
+# what a character on a desktop is. The red headband is Vijay's, which keeps
+# the mark tied to the cast rather than to a generic figure.
 MARK = [
     "................",
     "................",
-    "..KWKKWKKWKKWK..",
-    ".WKKWKKWKKWKKWW.",
-    ".WWWWWWWWWWWWWW.",
-    ".WKKKKKKKKKKKKW.",
-    ".WK..........KW.",
-    ".WK.RR....YY.KW.",
-    ".WK.RR....YY.KW.",
-    ".WK.RR....YY.KW.",
-    ".WK..........KW.",
-    ".WKKKKKKKKKKKKW.",
-    ".WWWWWWWWWWWWWW.",
-    "................",
+    "......HHHH......",
+    ".....HRRRRH.....",
+    ".....SSSSSS.....",
+    "......SSSS......",
+    "....WWWWWWWW....",
+    "...WWWWWWWWWW...",
+    "...WWWWWWWWWW...",
+    "....WWWWWWWW....",
+    ".....WW..WW.....",
+    ".....WW..WW.....",
+    "...WWWWWWWWWW...",
+    "..WWWWWWWWWWWW..",
     "................",
     "................",
 ]

@@ -166,12 +166,16 @@ connection, and none needs a permission prompt.
 
 ## Art
 
-The icon and the menu bar mark are a film slate. Both are drawn in code
-rather than kept as image files, so they rebuild with the app. `scripts/make_logo.py`
-draws the colour icon and `MenuBarMark` draws the one-colour version. Three
-other marks were tried first: three characters on a tile, a D monogram and a
-theatre curtain. The slate won because it holds its shape at 32 pixels and
-says cinema without naming anyone.
+The icon and the menu bar mark are a flat cutout on a base: the standee
+propped outside a theatre, and what a character on a desktop is. Both are
+drawn in code rather than kept as image files, so they rebuild with the app.
+`scripts/make_logo.py` draws the colour icon, and `MenuBarMark` draws the
+one-colour version.
+
+Six other marks were drawn and rejected. Three characters on a tile, a screen
+with heads over it, sunglasses, a film slate, a D monogram, and a theatre
+curtain. The cutout won on one test. It is still a figure at 16 pixels, which
+is the size the menu bar uses.
 
 The characters are generated with an image model, one reference per pose, then
 imported. Nobody draws pixels by hand unless they want to.
