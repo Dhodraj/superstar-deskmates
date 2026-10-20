@@ -201,7 +201,8 @@ job, and a half-finished roster reads worse than three finished ones.
 swift build && ./.build/debug/Deskmates
 ```
 
-Checks run as a program, not as `swift test`:
+Anything needing a cursor is in `CHECKS.md`: clicking, menus, dragging and the
+animations. The rest run as a program, not as `swift test`:
 
 ```
 swift run Checks

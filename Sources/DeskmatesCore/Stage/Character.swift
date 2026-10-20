@@ -74,6 +74,10 @@ final class Character {
     /// still, because a character crossing the screen while it reports a
     /// warning reads as two things at once.
     private func show(_ mood: Mood) {
+        if ProcessInfo.processInfo.environment["DESKMATES_DEBUG"] != nil {
+            print("mood \(name) \(mood.rawValue)")
+            fflush(stdout)
+        }
         switch mood {
         case .happy:
             view.playOnce(sheet.signature ?? Mood.happy.rawValue)

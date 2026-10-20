@@ -12,8 +12,19 @@ final class FocusTimer: NSObject, Job {
     /// depends on the number.
     private let length: TimeInterval
 
-    init(length: TimeInterval = 25 * 60) {
+    init(length: TimeInterval = FocusTimer.lengthFromEnvironment()) {
         self.length = length
+    }
+
+    /// How long a session runs. `DESKMATES_FOCUS` sets it in minutes, which is
+    /// how you try the thing without waiting 25 of them.
+    static func lengthFromEnvironment() -> TimeInterval {
+        guard let text = ProcessInfo.processInfo.environment["DESKMATES_FOCUS"],
+              let minutes = Double(text), minutes > 0
+        else {
+            return 25 * 60
+        }
+        return minutes * 60
     }
 
     private var endsAt: Date?
