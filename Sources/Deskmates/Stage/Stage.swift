@@ -12,7 +12,9 @@ final class Stage {
     /// Every character with art on disk, in a stable order.
     let available: [String]
 
-    init(scale: CGFloat = 3) {
+    // Art is drawn at 192 pixels tall and shown at half that in points, so one
+    // art pixel lands on one physical pixel of a Retina display.
+    init(scale: CGFloat = 0.5) {
         self.scale = scale
         spritesRoot = Self.locateSprites()
         available = (try? FileManager.default.contentsOfDirectory(

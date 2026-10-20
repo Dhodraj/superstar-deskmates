@@ -52,20 +52,35 @@ packs with two animations still work, because a missing mood falls back to
 
 ### Sprite sheet format
 
-Aseprite's own export. One `.aseprite` source file per character, one tag per
-mood, exported with:
+Aseprite's export, whoever writes it. Frames sit side by side in one PNG. A JSON
+file lists each frame rectangle with its duration in milliseconds. It also
+carries `meta.frameTags`, which names the ranges. The loader reads a mood straight from the
+tag of the same name.
+
+Two things write that shape today.
+
+`scripts/import_reference.py` turns reference images into a sheet. One image per
+pose, named for its tag:
 
 ```
-aseprite -b Art/ajit.aseprite \
-  --sheet Resources/sprites/ajit/sheet.png \
-  --data  Resources/sprites/ajit/sheet.json \
+Art/reference/vijay/idle.png
+Art/reference/vijay/walk-a.png
+Art/reference/vijay/walk-b.png
+Art/reference/vijay/happy.png
+```
+
+It cuts the background, crops to the figure, and scales every pose to the same
+height. Each frame sits on the floor of its cell, so a raised arm does not make
+the character hop.
+
+Aseprite itself, when a character is drawn by hand instead:
+
+```
+aseprite -b Art/vijay.aseprite \
+  --sheet Resources/sprites/vijay/sheet.png \
+  --data  Resources/sprites/vijay/sheet.json \
   --format json-array --list-tags
 ```
-
-That writes `frames` as a list. Each entry holds a frame rectangle and a
-duration in milliseconds. It also writes `meta.frameTags` as a list of
-`{name, from, to, direction}`, with zero-based frame indices. The loader reads a mood straight from the tag of
-the same name. No bespoke format, and no conversion step.
 
 Two things to hold:
 
@@ -127,101 +142,28 @@ Ajit is the cheapest character to draw and his job is one shell call. Rajni is
 the job you actually want, and it is the one that parses files. Between them the
 three cover every input shape the app will ever have.
 
-## Art brief per job
-
-Assign actors against this. The job decides how much face a character needs, and
-some jobs need almost none.
-
-### What survives 32 pixels
-
-Use these. Each one is a block of pixels, not a detail:
-
-- Sunglasses. Two dark pixels, and the strongest single identifier there is.
-- Moustache. A bar two or three pixels wide, reads at once.
-- Bald against full hair. This changes the whole head outline.
-- Hair colour as a flat block, or two tones dithered for salt and pepper.
-- Beard as a jaw block.
-- Shirt colour. One flat block, and the best way to tell two characters apart.
-- Body proportion, tall and thin against short and round. The only full-body cue
-  that works.
-- A cap or hat, because it changes the head outline.
-
-These do not survive. Spend no frames on them: nose shape, eye shape, skin
-shading, age lines, or any hairstyle more specific than a block. Thin
-spectacle frames are one pixel wide and usually muddy the face.
-
-### The nine jobs
-
-| Job | Moods used | Frames | How much face it needs | What carries it |
-|---|---|---|---|---|
-| Last CI run | idle, happy, alert | 9 | Almost none | A flag that changes colour. One body, three pixels repainted. Cheapest character to draw. |
-| Today's news | idle, busy | 6 | Almost none | A held-up paper covers the body and most of the face. You see hair and hands. |
-| Today's commits at 18:00 | idle, happy | 6 | Low | A notebook and pen. Seen once a day, so draw it last. |
-| What is running now | idle, busy | 6 | Low | A head turn, so asymmetric hair or a moustache helps more than expression. |
-| Focus timer | idle, busy, happy, sleep | 12 | Low | A steady stance and a held clock or lamp. Calm, not expressive. Good first character. |
-| AI token spend | idle, busy, alert | 9 | Low | A number panel does the talking. Formal collar, neat hair, a ledger or coin. |
-| Rate-limit warning | idle, alert | 5 | High, on one mood | A raised finger and an open mouth. Cheap in frames, demanding in that one pose. |
-| Uncommitted work piling up | idle, busy, alert, sleep | 11 | Highest | Three clearly different expressions, because the mood is the data. Needs an elastic face: big eyes, mobile brows, a sweat drop at `alert`. |
-| Focus guard pair | idle, alert, happy, twice | 18 | Medium, twice | Silhouette contrast is the whole design. Tall and thin against short and round, or bald against capped. |
-
-All nine come to 82 frames. Three characters for v1 is about 25 to 30.
-
-## Data sources
-
-Read from this Mac and confirmed, not assumed:
-
-- Claude Code writes `~/.claude/projects/<slug>/*.jsonl`. Lines with
-  `type == "assistant"` carry `message.model` and
-  `message.usage` with `input_tokens`, `cache_creation_input_tokens`,
-  `cache_read_input_tokens` and `output_tokens`.
-- A `cost-state` line type also appears in those files. Read it before writing a
-  model price table. It may hold the cost already.
-- Codex writes `~/.codex/sessions/**/rollout-*.jsonl` with a
-  `token_usage_record` line type.
-
-Tail these by byte offset and watch the directory with `DispatchSource`. Never
-re-read a whole file.
-
 ## Art
 
-Drawn here, not sourced. That removes the licence problem, and it is the only way
-to get characters that read as these actors.
+Generated for this project with an image model, one reference per pose, then
+imported. Nobody draws pixels by hand unless they want to.
 
-- Tool: Aseprite, which exports the sheet and the JSON in one command.
-  LibreSprite and Pixelorama are free and export the same shape.
-- Size: 32x32 cell. At that size a character is a silhouette, not a portrait.
-  Hair, moustache, glasses and shirt colour carry the whole likeness, and three
-  or four pixels decide whether it works.
-- Budget: five moods per character. `idle` and `sleep` are two frames each,
-  `busy` and `happy` four, `alert` three. About 15 frames per character.
+- Size: 192 pixels tall, shown at 96 points. On a Retina display that puts one
+  art pixel on one physical pixel.
+- Poses per character: `idle`, two walk frames, and one signature pose. Vijay
+  waves, Ajit puts the helmet on, Rajni flips a coin.
+- Import: `python3 scripts/import_reference.py Art/reference
+  Sources/Deskmates/Resources/sprites`
 
-Narrow the roster to three for v1. Each extra character is another 15 frames and
-another job, and a half-drawn roster reads worse than three finished ones. Pick
-actors whose silhouette survives 32 pixels: strong hair, glasses, or a face shape
-that still reads when most detail is gone.
-
-Every figure gets a dark outline, added by the generator rather than drawn.
-Without it a white suit disappears on a pale desktop. The outline also decides
-the leg shape. Legs are three pixels wide with a four-pixel gap. A narrower gap
-fills solid from both sides, and the character reads as one leg.
-
-Vijay and Ajit both wear white in their references. They separate on hair colour,
-headband against beard, stripe down the centre against stripes down the seams,
-and pale shoes against red boots.
-
-Likeness is the one open risk. A 32x32 sprite is far from a portrait, and
-caricature of a public figure is normal practice. These are still living people,
-and a public repo is not a private toy. If it ever becomes a problem, the characters
-keep their art and lose their names, and the Tamil job words take over.
-
-References live in `Art/reference/`, one image per character. They are
-generated for this project with an image model, so they carry no third-party
-licence and ship with the repo. They are not the art: they are what the pixels
-are drawn from.
+References live in `Art/reference/`. They are generated for this project, so
+they carry no third-party licence and ship with the repo. They are not the art:
+they are what the art is made from.
 
 Art taken from anyone else, generated or not, is recorded in
 `THIRD_PARTY_ART.md`. Give its source URL, and the licence as stated on the page
 the day you downloaded it.
+
+Three characters for v1. Each extra character is four more images and another
+job, and a half-finished roster reads worse than three finished ones.
 
 ## Running it
 
@@ -241,10 +183,10 @@ Two environment variables:
   has no window to inspect, so this is how you find a character that is not
   where you expect.
 
-Placeholder art is generated, not drawn:
+Rebuild the sheets after changing a reference:
 
 ```
-python3 scripts/make_placeholder_sheet.py Sources/Deskmates/Resources/sprites
+python3 scripts/import_reference.py Art/reference Sources/Deskmates/Resources/sprites
 ```
 
 ## Milestones

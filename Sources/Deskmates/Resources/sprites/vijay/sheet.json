@@ -5,205 +5,37 @@
    "frame": {
     "x": 0,
     "y": 0,
-    "w": 32,
-    "h": 32
+    "w": 175,
+    "h": 194
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 32,
-    "h": 32
+    "w": 175,
+    "h": 194
    },
    "sourceSize": {
-    "w": 32,
-    "h": 32
+    "w": 175,
+    "h": 194
    },
    "duration": 400
-  },
-  {
-   "filename": "vijay 1.aseprite",
-   "frame": {
-    "x": 32,
-    "y": 0,
-    "w": 32,
-    "h": 32
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 32,
-    "h": 32
-   },
-   "sourceSize": {
-    "w": 32,
-    "h": 32
-   },
-   "duration": 400
-  },
-  {
-   "filename": "vijay 2.aseprite",
-   "frame": {
-    "x": 64,
-    "y": 0,
-    "w": 32,
-    "h": 32
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 32,
-    "h": 32
-   },
-   "sourceSize": {
-    "w": 32,
-    "h": 32
-   },
-   "duration": 120
-  },
-  {
-   "filename": "vijay 3.aseprite",
-   "frame": {
-    "x": 96,
-    "y": 0,
-    "w": 32,
-    "h": 32
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 32,
-    "h": 32
-   },
-   "sourceSize": {
-    "w": 32,
-    "h": 32
-   },
-   "duration": 120
-  },
-  {
-   "filename": "vijay 4.aseprite",
-   "frame": {
-    "x": 128,
-    "y": 0,
-    "w": 32,
-    "h": 32
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 32,
-    "h": 32
-   },
-   "sourceSize": {
-    "w": 32,
-    "h": 32
-   },
-   "duration": 120
-  },
-  {
-   "filename": "vijay 5.aseprite",
-   "frame": {
-    "x": 160,
-    "y": 0,
-    "w": 32,
-    "h": 32
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 32,
-    "h": 32
-   },
-   "sourceSize": {
-    "w": 32,
-    "h": 32
-   },
-   "duration": 120
-  },
-  {
-   "filename": "vijay 6.aseprite",
-   "frame": {
-    "x": 192,
-    "y": 0,
-    "w": 32,
-    "h": 32
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 32,
-    "h": 32
-   },
-   "sourceSize": {
-    "w": 32,
-    "h": 32
-   },
-   "duration": 260
-  },
-  {
-   "filename": "vijay 7.aseprite",
-   "frame": {
-    "x": 224,
-    "y": 0,
-    "w": 32,
-    "h": 32
-   },
-   "rotated": false,
-   "trimmed": false,
-   "spriteSourceSize": {
-    "x": 0,
-    "y": 0,
-    "w": 32,
-    "h": 32
-   },
-   "sourceSize": {
-    "w": 32,
-    "h": 32
-   },
-   "duration": 260
   }
  ],
  "meta": {
-  "app": "scripts/make_placeholder_sheet.py",
+  "app": "scripts/import_reference.py",
   "format": "RGBA8888",
   "size": {
-   "w": 256,
-   "h": 32
+   "w": 175,
+   "h": 194
   },
   "scale": "1",
   "frameTags": [
    {
     "name": "idle",
     "from": 0,
-    "to": 1,
-    "direction": "forward",
-    "color": "#000000ff"
-   },
-   {
-    "name": "walk",
-    "from": 2,
-    "to": 5,
-    "direction": "forward",
-    "color": "#000000ff"
-   },
-   {
-    "name": "happy",
-    "from": 6,
-    "to": 7,
+    "to": 0,
     "direction": "forward",
     "color": "#000000ff"
    }
