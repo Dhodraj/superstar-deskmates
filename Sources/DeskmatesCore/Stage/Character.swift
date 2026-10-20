@@ -16,6 +16,9 @@ final class Character {
     private var wanderer: Wanderer?
     private var watcher: SheetWatcher?
     private var mood: Mood = .idle
+    private let caption = CaptionPanel()
+    private var captionTicker: Timer?
+    private var moved: NSObjectProtocol?
 
     /// Where the other characters are standing. Set by the stage.
     var neighbours: () -> [NSRect] = { [] }
@@ -66,6 +69,25 @@ final class Character {
         view.start()
         wanderer.start()
         job?.start { [weak self] mood in self?.show(mood) }
+
+        guard job != nil else { return }
+        // The caption is its own window, so it has to be told every time the
+        // character moves. Walking is a move a second, dragging is many.
+        moved = NotificationCenter.default.addObserver(
+            forName: NSWindow.didMoveNotification,
+            object: panel,
+            queue: .main
+        ) { [weak self] _ in
+            self?.refreshCaption()
+        }
+        captionTicker = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+            self?.refreshCaption()
+        }
+        refreshCaption()
+    }
+
+    private func refreshCaption() {
+        caption.show(job?.badge, above: panel.frame)
     }
 
     /// Puts a mood on screen.
@@ -95,6 +117,13 @@ final class Character {
     /// Puts the character away. Nothing of it keeps running, which is what
     /// "characters sleep when hidden" has to mean to be worth saying.
     func sleep() {
+        captionTicker?.invalidate()
+        captionTicker = nil
+        if let moved {
+            NotificationCenter.default.removeObserver(moved)
+            self.moved = nil
+        }
+        caption.orderOut(nil)
         job?.stop()
         wanderer?.stop()
         wanderer = nil

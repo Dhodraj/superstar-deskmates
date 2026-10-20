@@ -26,9 +26,17 @@ protocol Job: AnyObject {
 
     /// Extra entries for the character's right-click menu.
     func menuItems() -> [NSMenuItem]
+
+    /// One short line to float above the character, or nil for nothing.
+    ///
+    /// This is for the figure you would otherwise have to right-click for, and
+    /// only while it is worth watching. A permanent label over every character
+    /// would turn the desktop into a dashboard.
+    var badge: String? { get }
 }
 
 extension Job {
     func tapped() {}
     func menuItems() -> [NSMenuItem] { [] }
+    var badge: String? { nil }
 }

@@ -103,6 +103,13 @@ final class FocusTimer: NSObject, Job {
         return [item]
     }
 
+    /// The countdown, while a session is running. This is the one thing you
+    /// want to see without asking for it.
+    var badge: String? {
+        guard let endsAt else { return nil }
+        return Self.clock(until: endsAt)
+    }
+
     @objc private func toggle() {
         tapped()
     }
