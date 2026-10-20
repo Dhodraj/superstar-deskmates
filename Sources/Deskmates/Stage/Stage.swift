@@ -96,11 +96,18 @@ final class Stage {
     private func show(_ name: String) {
         guard awake[name] == nil else { return }
         let directory = spritesRoot.appendingPathComponent(name)
-        guard let character = try? Character(name: name, directory: directory, scale: scale) else {
+        guard let character = try? Character(
+            name: name,
+            directory: directory,
+            scale: scale,
+            job: Self.job(for: name)
+        ) else {
             FileHandle.standardError.write("cannot load character \(name)\n".data(using: .utf8)!)
             return
         }
-        character.view.contextMenu = { [weak self] in self?.menu() ?? NSMenu() }
+        character.view.contextMenu = { [weak self, weak character] in
+            self?.menu(for: character) ?? NSMenu()
+        }
         character.neighbours = { [weak self, weak character] in
             guard let self, let character else { return [] }
             return self.awake.values
@@ -136,10 +143,27 @@ final class Stage {
         settings.save()
     }
 
+    /// Which character does what. One place, so adding a job is one line here
+    /// and one file in Jobs/.
+    private static func job(for name: String) -> Job? {
+        switch name {
+        case "vijay": return FocusTimer()
+        default: return nil
+        }
+    }
+
     /// The same list in the menu bar and on a right-click, so there is one way
-    /// to swap a character.
-    func menu() -> NSMenu {
+    /// to swap a character. A right-click also gets that character's own job
+    /// entries at the top, where they are closest to the thing clicked.
+    func menu(for character: Character? = nil) -> NSMenu {
         let menu = NSMenu()
+        let jobItems = character?.job?.menuItems() ?? []
+        for item in jobItems {
+            menu.addItem(item)
+        }
+        if !jobItems.isEmpty {
+            menu.addItem(.separator())
+        }
         fill(menu)
         return menu
     }
