@@ -1,6 +1,6 @@
 # Reference prompts
 
-Six images, two per character. Each one is a sprite sheet row: a line of
+Seven images, two or three per character. Each one is a sprite sheet row: a line of
 full-body figures that become the frames of an animation.
 
 Save them here, then rebuild the sheets:
@@ -13,6 +13,7 @@ python3 scripts/import_reference.py Art/reference Sources/DeskmatesCore/Resource
 |---|---|
 | `vijay/strip-anchor-idle-idle-walk-walk-walk-walk.png` | 7 |
 | `vijay/strip-anchor-happy-happy-busy-busy.png` | 5 |
+| `vijay/strip-anchor-alert-alert.png` | 3 |
 | `ajit/strip-anchor-idle-idle-walk-walk-walk-walk.png` | 7 |
 | `ajit/strip-anchor-busy-busy-alert-alert-happy-happy.png` | 7 |
 | `rajni/strip-anchor-idle-idle-walk-walk-walk-walk.png` | 7 |
@@ -307,6 +308,41 @@ Save as `Art/reference/rajni/strip-anchor-alert-alert-busy-busy.png`.
 > and nothing else in the scene. A dark outline around each figure. No motion
 > blur, no speed lines, no ghosting. Pixel art, the same palette and the same
 > level of detail as the attached image.
+
+## Vijay still needs one more
+
+His job reacts when you leave the app you started in, and that reaction has no
+pose. He reports `alert` and the sheet has none, so he falls back to standing
+and the moment reads as nothing.
+
+Save as `Art/reference/vijay/strip-anchor-alert-alert.png`.
+
+> Pixel art sprite sheet of the same man as the attached image, three full-body
+> figures facing the camera.
+>
+> Figure 1 is a reference pose: standing plainly, feet together, arms straight
+> down at his sides, head level.
+>
+> Figures 2 and 3 are one disappointed look. Figure 2 has both arms out from
+> his sides, elbows bent, palms turned up, head tilted, eyebrows raised, as
+> though asking where you went. Figure 3 is the same pose with his arms a
+> little lower and his head tilted the other way. His feet do not move between
+> them.
+>
+> Keep his face, hair, headband, scarf and clothes exactly as in the attached
+> image. Drop the stage, the railing and the lights. Show only the man, head
+> to shoes.
+>
+> Side by side in one horizontal row, evenly spaced, with clear empty space
+> between the figures so none of them touch or overlap. The same camera
+> distance, the same eye level and the same lighting for every figure. Plain
+> flat off-white background, one colour, no gradient, no shadow on the floor
+> and nothing else in the scene. A dark outline around each figure. No motion
+> blur, no speed lines, no ghosting. Pixel art, the same palette and the same
+> level of detail as the attached image.
+
+Attach `Art/reference/vijay.png`, the same image as his other two prompts. The
+anchor is what keeps all three sheets at one size.
 
 ## Checking a sheet before you import it
 

@@ -6,3 +6,6 @@
 
 # Python bytecode
 __pycache__/
+
+# Built app bundle
+/build/

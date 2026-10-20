@@ -198,6 +198,16 @@ final class Stage {
             menu.addItem(item)
         }
         menu.addItem(.separator())
+        if LaunchAtLogin.isAvailable {
+            let login = NSMenuItem(
+                title: "Start at login",
+                action: #selector(MenuTarget.toggleLogin),
+                keyEquivalent: ""
+            )
+            login.target = MenuTarget.shared
+            login.state = LaunchAtLogin.isOn ? .on : .off
+            menu.addItem(login)
+        }
         let quit = NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         quit.target = NSApp
         menu.addItem(quit)
@@ -212,5 +222,9 @@ final class MenuTarget: NSObject {
     @objc func pick(_ sender: NSMenuItem) {
         guard let name = sender.representedObject as? String else { return }
         stage?.toggle(name)
+    }
+
+    @objc func toggleLogin() {
+        LaunchAtLogin.set(!LaunchAtLogin.isOn)
     }
 }

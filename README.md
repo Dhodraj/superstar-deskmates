@@ -18,8 +18,22 @@ No account, no network, no permission prompts. Nothing leaves the Mac.
 Needs macOS 14 or later and the Xcode Command Line Tools.
 
 ```
-swift build
-./.build/debug/Deskmates
+./scripts/make_app.sh
+open build/Deskmates.app
+```
+
+That builds `Deskmates.app`. No Dock icon, an icon drawn from Vijay's standing
+frame, and an ad-hoc signature. That signature is enough to run on the Mac
+that built it. Move it to `/Applications` and the menu bar gains a **Start at
+login** entry.
+
+Shipping it to anyone else needs a Developer ID and notarisation, which this
+does not have yet.
+
+For a quick run during development, skip the bundle:
+
+```
+swift build && ./.build/debug/Deskmates
 ```
 
 There is no Dock icon. The menu bar item is the way in when every character is

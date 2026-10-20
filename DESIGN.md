@@ -189,6 +189,25 @@ job, and a half-finished roster reads worse than three finished ones.
 
 ## Running it
 
+As an app, which is how it is meant to run:
+
+```
+./scripts/make_app.sh
+open build/Deskmates.app
+```
+
+The script builds the release binary and puts the SwiftPM resource bundle
+beside it in `Contents/Resources`. It then draws an icon from Vijay's standing
+frame, writes an `Info.plist` with `LSUIElement` set, and signs the result
+ad-hoc. `SMAppService` needs a bundle to register a login
+item. So **Start at login** appears in the menu only when the app runs from
+one.
+
+The bundle is not notarised and carries no Developer ID, so it runs on the
+machine that built it and nowhere else.
+
+For a quick run during development:
+
 ```
 swift build && ./.build/debug/Deskmates
 ```
