@@ -8,6 +8,7 @@ every icon size. Drawn here rather than kept as an image file, so the icon
 rebuilds with the app and there is nothing to keep in step.
 """
 import pathlib
+import subprocess
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
@@ -69,11 +70,48 @@ def draw(size):
     return out
 
 
+SOURCE = pathlib.Path("Art/icon-source.png")
+
+
+def round_corners(size, pixels):
+    """Cut the tile corners, so a square image becomes an app icon.
+
+    The source is asked for as a solid square because image models are
+    unreliable with transparency. The shape is added here instead.
+    """
+    radius = int(size * 0.22)
+    for y in range(size):
+        for x in range(size):
+            cx = min(max(x, radius), size - 1 - radius)
+            cy = min(max(y, radius), size - 1 - radius)
+            if (x - cx) ** 2 + (y - cy) ** 2 > radius * radius:
+                pixels[y * size + x] = (0, 0, 0, 0)
+    return pixels
+
+
+def from_source(work):
+    """Use the drawn artwork when there is some, scaled to the icon size."""
+    scaled = work / "icon-source-scaled.png"
+    subprocess.run(
+        ["sips", "-z", str(SIZE), str(SIZE), str(SOURCE), "--out", str(scaled)],
+        capture_output=True,
+        check=True,
+    )
+    _, _, pixels = pixelpng.read(scaled)
+    return round_corners(SIZE, list(pixels))
+
+
 def main(out_path):
     out = pathlib.Path(out_path)
     out.parent.mkdir(parents=True, exist_ok=True)
-    pixelpng.write(out, SIZE, SIZE, draw(SIZE))
-    print(f"{out} {SIZE}x{SIZE}")
+    if SOURCE.exists():
+        pixels = from_source(out.parent)
+        where = SOURCE
+    else:
+        pixels = draw(SIZE)
+        where = "drawn in code"
+    pixelpng.write(out, SIZE, SIZE, pixels)
+    print(f"{out} {SIZE}x{SIZE} from {where}")
 
 
 if __name__ == "__main__":

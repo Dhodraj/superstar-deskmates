@@ -344,6 +344,34 @@ Save as `Art/reference/vijay/strip-anchor-alert-alert.png`.
 Attach `Art/reference/vijay.png`, the same image as his other two prompts. The
 anchor is what keeps all three sheets at one size.
 
+## The app icon
+
+Save as `Art/icon-source.png`. The build picks it up on its own, scales it to
+1024, and cuts the rounded corners. Without that file it draws the icon in
+code instead.
+
+Ask for a solid square filled edge to edge. Image models are unreliable with
+transparency, so the shape is added afterwards rather than requested.
+
+> A square app icon in pixel art, filled edge to edge with a very dark
+> near-black background, no border and no rounded corners.
+>
+> In the centre, a cinema fan cutout: a flat standing board cut to the shape
+> of a Tamil film hero, propped upright on a small wooden easel, the way one
+> stands outside a theatre on release day. The hero wears a white shirt, white
+> trousers and a red headband, with a red and yellow striped scarf around his
+> neck, one arm raised in a wave. The board has a thin bright edge, so it
+> reads as a flat cut piece rather than a person.
+>
+> The cutout fills about three quarters of the height and is centred, with
+> clear dark space all around it. Chunky pixels, a small palette, hard edges
+> and no anti-aliasing. No text, no logo, no letters, no watermark, no drop
+> shadow on the background.
+
+Two things to check before you keep it. The figure must still read at 32
+pixels, so squint at it small. And the corners must be plain background, with
+nothing important in them, because they get cut away.
+
 ## Checking a sheet before you import it
 
 Ask again when any of these is true:
