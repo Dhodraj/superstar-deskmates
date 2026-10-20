@@ -1,15 +1,38 @@
 import Foundation
 @testable import DeskmatesCore
 
-/// The focus timer has no input, so its whole behaviour is the sequence of
-/// moods it reports.
+/// The focus timer reports a mood and rings on the turns. The guard is the
+/// part worth checking: it must not react to a glance at another window, and
+/// it must react when you stay away.
 func checkFocusTimer() {
     print("FocusTimer")
 
-    var moods: [String] = []
-    let short = FocusTimer(length: 0.4)
-    short.start { moods.append($0.rawValue) }
-    Check.that("reports idle before any session", moods, equals: ["idle"])
+    final class Stage {
+        var moods: [String] = []
+        var chimes: [String] = []
+        var front: String? = "com.apple.dt.Xcode"
+    }
+
+    func make(length: TimeInterval, grace: TimeInterval = 0.2,
+              distractions: [String] = []) -> (FocusTimer, Stage) {
+        let stage = Stage()
+        let timer = FocusTimer(
+            length: length,
+            grace: grace,
+            distractions: distractions,
+            frontmost: { stage.front },
+            play: { stage.chimes.append("\($0)") }
+        )
+        timer.start { stage.moods.append($0.rawValue) }
+        return (timer, stage)
+    }
+
+    func settle(_ seconds: TimeInterval) {
+        RunLoop.main.run(until: Date().addingTimeInterval(seconds))
+    }
+
+    let (short, first) = make(length: 1.0)
+    Check.that("reports idle before any session", first.moods, equals: ["idle"])
     Check.that(
         "menu offers a session",
         short.menuItems().first?.title.hasPrefix("Start focus") == true,
@@ -22,25 +45,65 @@ func checkFocusTimer() {
     )
 
     short.tapped()
-    Check.that("starting reports busy", moods, equals: ["idle", "busy"])
+    Check.that("starting reports busy", first.moods, equals: ["idle", "busy"])
     Check.that(
         "menu counts down while running",
         short.menuItems().first?.title.hasPrefix("Stop focus") == true,
         short.menuItems().first?.title ?? "none"
     )
 
-    RunLoop.main.run(until: Date().addingTimeInterval(1.2))
-    Check.that("finishing waves then rests", moods, equals: ["idle", "busy", "happy", "idle"])
+    settle(1.4)
+    Check.that("finishing waves then rests", first.moods, equals: ["idle", "busy", "happy", "idle"])
+    Check.that("finishing rings once", first.chimes, equals: ["finished"])
     Check.that(
         "menu resets after the session",
         short.menuItems().first?.title.hasPrefix("Start focus") == true,
         short.menuItems().first?.title ?? "none"
     )
 
-    var cancelled: [String] = []
-    let long = FocusTimer(length: 600)
-    long.start { cancelled.append($0.rawValue) }
-    long.tapped()
-    long.tapped()
-    Check.that("stopping early does not wave", cancelled, equals: ["idle", "busy", "idle"])
+    let (early, second) = make(length: 600)
+    early.tapped()
+    early.tapped()
+    Check.that("stopping early does not wave", second.moods, equals: ["idle", "busy", "idle"])
+    Check.that("stopping early is silent", second.chimes, equals: [String]())
+    early.stop()
+
+    // The guard. A glance at another window is not drifting.
+    let (glance, third) = make(length: 600, grace: 1.0)
+    glance.tapped()
+    third.front = "com.tinyspeck.slackmacgap"
+    settle(0.4)
+    third.front = "com.apple.dt.Xcode"
+    settle(0.4)
+    Check.that("a glance away is ignored", third.moods, equals: ["idle", "busy"])
+    Check.that("a glance away is silent", third.chimes, equals: [String]())
+    glance.stop()
+
+    let (away, fourth) = make(length: 600, grace: 0.2)
+    away.tapped()
+    fourth.front = "com.tinyspeck.slackmacgap"
+    settle(0.8)
+    Check.that("staying away reports alert", fourth.moods, equals: ["idle", "busy", "alert"])
+    Check.that("staying away rings once", fourth.chimes, equals: ["drifted"])
+    Check.that(
+        "the menu says you are away",
+        away.menuItems().first?.title.contains("you are away") == true,
+        away.menuItems().first?.title ?? "none"
+    )
+    fourth.front = "com.apple.dt.Xcode"
+    settle(0.5)
+    Check.that("coming back reports busy", fourth.moods, equals: ["idle", "busy", "alert", "busy"])
+    Check.that("coming back is silent", fourth.chimes, equals: ["drifted"])
+    away.stop()
+
+    // A named list narrows what counts as drift.
+    let (named, fifth) = make(length: 600, grace: 0.2, distractions: ["slack"])
+    named.tapped()
+    fifth.front = "com.apple.Terminal"
+    settle(0.6)
+    Check.that("an app not on the list is fine", fifth.moods, equals: ["idle", "busy"])
+    fifth.front = "com.tinyspeck.slackmacgap"
+    settle(0.6)
+    Check.that("an app on the list is drift", fifth.moods.last, equals: Optional("alert"))
+    named.stop()
 }

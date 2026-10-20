@@ -23,6 +23,11 @@ final class CIStatus: NSObject, Job {
             }
         }
 
+        var isFailed: Bool {
+            if case .failed = self { return true }
+            return false
+        }
+
         var title: String {
             switch self {
             case .passed(let run): return "CI passed: \(run)"
@@ -37,6 +42,7 @@ final class CIStatus: NSObject, Job {
     private let interval: TimeInterval
     /// Returns the raw JSON `gh` printed, or nil when it could not be asked.
     private let ask: (URL) -> String?
+    private let play: (Chime) -> Void
 
     private var ticker: Timer?
     private var emit: ((Mood) -> Void)?
@@ -45,11 +51,13 @@ final class CIStatus: NSObject, Job {
     init(
         repository: URL,
         interval: TimeInterval = 60,
-        ask: @escaping (URL) -> String? = CIStatus.askGH
+        ask: @escaping (URL) -> String? = CIStatus.askGH,
+        play: @escaping (Chime) -> Void = Chime.ring
     ) {
         self.repository = repository
         self.interval = interval
         self.ask = ask
+        self.play = play
     }
 
     func start(_ emit: @escaping (Mood) -> Void) {
@@ -87,10 +95,18 @@ final class CIStatus: NSObject, Job {
         let previous = state
         state = Self.read(ask(repository))
         guard state != previous else { return }
-        // A run that goes from red to green is worth a wave. Staying green is
-        // not, or the character would celebrate every poll.
-        if case .failed = previous, case .passed = state {
+        // Only a turn is worth announcing. A build that stays green says
+        // nothing, and a character that cheered every poll would be noise.
+        switch (previous, state) {
+        case (.failed, .passed):
+            play(.fixed)
             emit?(.happy)
+        case (_, .failed) where !previous.isFailed:
+            // The point of the job: you find out the build broke without
+            // having the Actions tab open.
+            play(.broke)
+        default:
+            break
         }
         emit?(state.mood)
     }

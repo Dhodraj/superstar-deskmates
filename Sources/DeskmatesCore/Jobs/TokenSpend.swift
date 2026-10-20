@@ -44,6 +44,7 @@ final class TokenSpend: NSObject, Job {
     private let alertUSD: Double
     private let interval: TimeInterval
     private let now: () -> Date
+    private let play: (Chime) -> Void
 
     private var ticker: Timer?
     private var emit: ((Mood) -> Void)?
@@ -54,12 +55,14 @@ final class TokenSpend: NSObject, Job {
         roots: [URL] = TokenSpend.defaultRoots(),
         alertUSD: Double = TokenSpend.alertFromEnvironment(),
         interval: TimeInterval = 60,
-        now: @escaping () -> Date = Date.init
+        now: @escaping () -> Date = Date.init,
+        play: @escaping (Chime) -> Void = Chime.ring
     ) {
         self.roots = roots
         self.alertUSD = alertUSD
         self.interval = interval
         self.now = now
+        self.play = play
     }
 
     /// What counts as a heavy day. `DESKMATES_SPEND_ALERT` overrides it.
@@ -106,6 +109,11 @@ final class TokenSpend: NSObject, Job {
         tally = Self.read(roots: roots, today: now())
         let wanted: Mood = tally.costUSD >= alertUSD ? .alert : (tally.working ? .busy : .idle)
         guard wanted != mood else { return }
+        // The point of the job: you hear about an expensive day while you can
+        // still do something about it, not at midnight.
+        if wanted == .alert {
+            play(.spending)
+        }
         mood = wanted
         emit?(wanted)
     }

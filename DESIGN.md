@@ -136,13 +136,23 @@ their timers rather than hide a view.
 Click a character with no job and it does its signature pose once, then stands
 again. Click one with a job and the click goes to the job instead.
 
-Vijay's focus timer is the first job. Click him to start a session. He stops
-wandering and stands while it runs, then waves when it ends. Click him again, or
-use his right-click menu, to stop it early. The menu shows the time left.
+Each job earns its character by reacting at the moment that matters. A figure
+in the corner of the screen is easy to miss, so a turn gets a sound as well as
+a pose. A state that stays the same rings nothing.
+
+Vijay keeps a focus session honest. Click him to start. He folds his arms and
+stops wandering, and the menu counts down. If you leave the app you started in
+and stay away for twenty seconds, he reacts and chimes. He settles again when
+you come back, and waves when the session ends. A glance at another window is
+not drifting, which is what the twenty seconds are for.
+
+`DESKMATES_DISTRACTIONS` narrows what counts, as a comma separated list matched
+against the bundle identifier. Without it, any app other than the one the
+session started in counts.
 
 Ajit watches one repository's newest GitHub Actions run, through `gh run list`.
 Green is standing, a run in progress is the helmet, and a failure is the red
-flag. He waves when a red build goes green, and not when a green one stays
+flag with a chime. A broken build finds you without the Actions tab open. He waves when a red build goes green, and not when a green one stays
 green. The repository is `DESKMATES_REPO`, or wherever the app was started.
 Anything `gh` cannot answer reads as unknown, which stands rather than showing a
 false green.
@@ -150,7 +160,8 @@ false green.
 Rajni reads today's AI spend from the transcripts Claude Code and Codex already
 write under the home folder. Nothing leaves the Mac. His menu shows the day's
 tokens and cost. He counts while a transcript is being written, and flips a
-coin once the day passes the alert figure.
+coin with a chime once the day passes the alert figure. The point is to hear
+about an expensive day while you can still do something about it.
 
 Cost comes from the `cost-state` line Claude Code writes per session, so there
 is no price table to go stale. Codex records no cost, so the money figure is
@@ -226,6 +237,10 @@ Two environment variables:
   others, so prefer 0.5 or 1.
 - `DESKMATES_SPEED` sets the walking speed in points per second. The default
   is 11.
+- `DESKMATES_FOCUS` sets a focus session in minutes. The default is 25, and a
+  short one is how you try it without waiting.
+- `DESKMATES_DISTRACTIONS` lists the apps Vijay treats as drift.
+- `DESKMATES_SILENT` turns every sound off.
 - `DESKMATES_SPEND_ALERT` is the cost in dollars at which Rajni starts
   flipping his coin. The default is 20.
 - `DESKMATES_REPO` is the repository Ajit watches. Without it he watches the
