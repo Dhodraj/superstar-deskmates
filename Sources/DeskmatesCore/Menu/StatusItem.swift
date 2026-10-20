@@ -22,6 +22,7 @@ final class StatusItem: NSObject, NSMenuDelegate {
 
     /// Rebuilt on every open, so the checkmarks match who is on screen.
     func menuNeedsUpdate(_ menu: NSMenu) {
+        menu.removeAllItems()
         stage.fill(menu)
     }
 }

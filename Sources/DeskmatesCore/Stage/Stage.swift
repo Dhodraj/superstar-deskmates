@@ -181,10 +181,13 @@ final class Stage {
         return menu
     }
 
-    /// Replaces a menu's items in place, so a long-lived menu bar menu shows
-    /// the characters that are actually on screen.
+    /// Adds the character list and the app entries to a menu.
+    ///
+    /// This appends rather than replaces. The menu bar menu is long-lived and
+    /// clears itself before each open; a right-click menu is built fresh with
+    /// the character's job entries already in it, and clearing here used to
+    /// throw those away.
     func fill(_ menu: NSMenu) {
-        menu.removeAllItems()
         for name in available {
             let item = NSMenuItem(
                 title: name.capitalized,

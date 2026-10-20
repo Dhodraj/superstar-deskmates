@@ -6,4 +6,5 @@ import Foundation
 checkFocusTimer()
 checkBattery()
 checkRunningApps()
+checkMenus()
 Check.finish()
